@@ -28,7 +28,9 @@ function addEvent(){
 	$(".user-menu-box").on("mouseleave",function(){
 		$(".user-menu-box").hide();
 	});
+	
 }
 $(function(){
 	addEvent();
+	$(".audit-right").load("../myMessage/my-message.html");
 })
