@@ -1,0 +1,50 @@
+body{
+    overflow-y: scroll;
+    font-family: '微软雅黑';
+    font-size: 14px;
+    overflow-x: auto;
+}
+html,body,dl,li{
+    padding: 0px;
+    margin: 0px;
+}
+dd{
+    margin-left:3px;
+    padding-left: 3px;
+}
+dt{
+    font-weight: bolder;
+}
+a,a:visited{}
+a:active,a:hover{text-decoration: underline}
+ul{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+.left-nav{}
+.left-nav-menu dt{
+    border-bottom: 1px solid #222;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 10px;
+    color: #333;
+    position: relative;
+}
+.left-nav ul{
+    padding: 3px;
+}
+.left-nav ul li{
+    margin-bottom: 5px;
+}
+.left-nav ul a{
+    color: #333;
+    display: block;
+    text-decoration: none;
+    line-height: 32px;
+    padding-left: 15px;
+}
+.left-nav ul a:hover,.left-nav ul li.active a{
+    background: #245ab0;
+    color: #fff;
+}

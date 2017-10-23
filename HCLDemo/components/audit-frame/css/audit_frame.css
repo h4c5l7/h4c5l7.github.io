@@ -1,0 +1,39 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.audit-header .audit-top{
+	height: 70px;
+	background-color: #3f9ce7;
+	line-height: 70px;
+}
+
+.audit-header .audit-top a:first-child{
+	display: inline-block;
+	font-size: 24px;
+	color:#fff;
+}
+.audit-header .audit-top a img{
+	vertical-align: middle;
+	margin: 0 20px 0 36px;
+}
+.audit-header .audit-top ul{
+	margin-left:191px;
+	display: inline-block;
+	
+}
+.audit-header .audit-top ul li{
+	display: inline-block;
+	list-style: none;
+	font-size: 16px;
+	color:#fff;
+	width: 100px;
+	font-weight: 700;
+}
+.audit-header .audit-top p{
+	display: inline-block;
+	color:#fff;
+	float: right;
+	margin-right: 20px;
+	font-size: 20px;	
+}

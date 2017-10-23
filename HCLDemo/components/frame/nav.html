@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="css/index.css">
+    <script src="../common/jquery-1.11.2.js"></script>
+</head>
+<body>
+
+
+<div class="left-nav">
+    <dl class="left-nav-menu">
+        <dt>
+            框架
+        </dt>
+        <dd>
+            <ul>
+                <li>
+                    <a href="../loading/loading.html"  target="main">读取中-loading</a>
+                </li>
+            </ul>
+        </dd>
+    </dl>
+    <dl class="left-nav-menu">
+        <dt>
+            基础组件
+        </dt>
+        <dd>
+            <ul>
+                <li>
+                    <a href="components/icon/index.html" target="main">字体图标-icon</a>
+                </li>
+            </ul>
+        </dd>
+    </dl>
+    <dl class="left-nav-menu">
+        <dt>
+            插件组件
+        </dt>
+        <dd>
+            <ul>
+                <li>
+                    <a href="components/tab/index.html" target="main">选项卡-tab</a>
+                </li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+
+<script>
+
+    $(function(){
+        $(".left-nav-menu a").click(function(){
+            $(this).parents(".left-nav").children().children().children().children().removeClass("active")
+            $(this).parent("li").addClass("active");
+        });
+    })
+
+
+
+</script>
+
+</body>
+</html>

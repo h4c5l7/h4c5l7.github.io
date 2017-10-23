@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.artemisUI-loading-default{
+			    text-align: center;
+			    z-index: 99;
+			    position: fixed;
+			    top: 46%;
+			    left: 43%;
+			    display: none;
+			}
+			.artemisUI-loading-default span{
+			    padding-left: 10px;
+			    color: #333;
+				font-size: 12px;
+			}
+			.artemisUI-loading-default img{
+				vertical-align: middle;
+			}
+			#artemisUI-Layer{
+			    z-index: 98;
+			    position: absolute;
+			    background: #fff;
+			    top: 0px;
+			    left: 0px;
+			    filter: "alpha(opacity=60)";
+			    opacity: 0.6;
+			    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
+			}
+
+		</style>
+	</head>
+	<body>
+		<button id="artemisUI-btn-loading2">显示loading</button>
+		<div class="artemisUI-loading-default" id="myLoading" style="display:none;">
+	        <i><img src="images/loading.gif"></i>
+	        <span>数据加载中，请稍后...</span>
+	    </div>
+	</body>
+	<script type="text/javascript" src="../common/jquery-1.11.2.js"></script>
+	<script type="text/javascript" src="loading.js"></script>
+	
+	<script>
+		$("#artemisUI-btn-loading2").click(function(){
+	        var valInstance= $("#myLoading").artemisUILoading({
+	            content:"",
+	            state:"show"  //show:显示，hide:隐藏
+	        })
+        });
+	</script>
+</html>

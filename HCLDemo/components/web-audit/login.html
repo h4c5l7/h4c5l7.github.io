@@ -1,0 +1,116 @@
+<!--
+使用的HTML5技术：
+header标签
+placeholder属性
+required属性：跟type=submit一起使用。
+input的form属性：使表单外的表单元素跟form表单联系在一起。
+input的formaction,formmethod,formenctype,formtarget属性。
+autofocus属性：自动聚焦。
+designMode和contenteditable属性：使用场景为演示时较多。
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>登录页面</title>
+		<style>
+			*{margin:0;padding: 0;}
+			html,body{height: 100%;overflow: hidden;}
+			.header{height: 80px;width:100%;background-color: #5f5f5f;line-height: 80px;padding-left: 20px;}
+			.header img{vertical-align: middle;}
+			.header span{font-size: 22px;font-weight: bold;color:#fff;font-family: Microsoft YaHei;margin-left: 15px;}
+			.back-div{width: 100%;height: calc(100% - 80px);background: radial-gradient(#13b0e1 , #125dc1);position: relative;}
+			.login-img{width: 599px;height: 366px;position: absolute;top: 150px;left: 50px;background-image: url(img/logoImgAudit.png);}
+			.login-panel{position: absolute;right:90px;top:100px;width: 390px;height: 377px;background: rgba(5,87,169,0.25);padding-top: 50px;}
+			.login-panel .login-form{padding: 0px 40px;height: 188px;}
+			.login-panel .login-form h1{color:#cfeefc;font-size: 22px;font-weight: normal;padding-left: 40px;padding-bottom: 40px;}
+			.login-panel .login-form .login-name,
+			.login-panel .login-form .login-password,
+			.login-panel .login-form .login-button{
+				display: inline-block;
+				vertical-align: middle;
+				position: relative;
+				margin-bottom: 35px;
+				}
+			.login-panel .login-form .login-name input,.login-panel .login-form .login-password input{
+				height: 45px;
+				width: 311px;
+				text-indent: 40px;
+				font-size: 18px;
+				font-family: "microsoft yahei";
+				
+			}
+			.login-panel .login-form .login-name img,.login-panel .login-form .login-password img{
+				position: absolute;
+				left: 10px;
+				top:13px;
+			}
+			.login-panel .login-form .login-button{
+				text-align: center;
+				height: 45px;
+				line-height: 45px;
+				width: 315px;
+				border-radius: 4px;
+				cursor: pointer;
+				color: #fff;
+				letter-spacing: 18px;
+				background-color: #3f9ce7;
+				vertical-align: middle;
+				border:none;
+				font-size: 18px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="header">
+			<img src="img/logo.png" />
+			<span contenteditable="true">智慧审计</span>
+		</header>
+		<div class="back-div">
+			<div class="login-img"></div>
+			<div class="login-panel">
+				
+					<div class="login-form">
+						<h1>用户登录</h1>
+						<form id="loginForm" name="loginForm1" action="audit-frame/audit_frame.html" method="get">
+							<div class="login-name">
+								<img src="img/adminIcon.png" />
+								<input  type="text" placeholder="用户名" required=required id="userName" autofocus="autofocus"/>
+							</div>
+						</form>
+						<div class="login-password">
+							<img src="img/passwordIcon.png" />
+							<input  type="password" placeholder="密码" form="loginForm" required=""/>
+						</div>
+						<!--button按钮可以直接提交表单-->
+						<button class="login-button" id="login-button" form="loginForm" formaction="audit-frame/audit_frame.html" formmethod="get" formtarget="_self" formenctype="application/x-www-form-urlencoded">登录</button>
+					</div>
+				
+			</div>
+		</div>
+		<script>
+			window.onload = function(){
+				document.designMode = "ON";
+				/*var loginButton = document.getElementsByClassName("login-button");*/
+				//获取登录按钮对象
+				var loginButton = document.getElementById("login-button");
+				//登录按钮对象添加click监听事件
+				loginButton.addEventListener('click',function(){
+					//操作dom表单的几种方式
+					//第一种方式://根据id=loginForm获取表单
+					//loginForm = document.getElementById("loginForm");
+					//第二种方式：获取document中的第一个表单
+					//var loginForm = document.forms[0];
+					//第三种方式：document获取name=loginForm1的表单
+					//var loginForm = document.forms["loginForm1"];
+					//第四种方式：不用获取，name=loginForm或者id=loginForm，浏览器直接能识别该表单
+					//loginForm.action="audit-frame/audit_frame.html";
+					//loginForm.method="get";
+					//loginForm.submit();
+					//window.location.href="audit-frame/audit_frame.html";
+				});
+			}
+			
+		</script>
+	</body>
+</html>

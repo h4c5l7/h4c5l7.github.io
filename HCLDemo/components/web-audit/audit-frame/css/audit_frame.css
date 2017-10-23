@@ -1,0 +1,112 @@
+*{
+	margin: 0;
+	padding: 0;
+	border:0;
+}
+html,body{
+	width:100%;
+}
+.audit-header{
+	position: relative;
+}
+.audit-header .audit-top{
+	height: 70px;
+	background-color: #3f9ce7;
+	line-height: 70px;
+}
+
+.audit-header .audit-top>a:first-child{
+	display: inline-block;
+	font-size: 24px;
+	color:#fff;
+}
+.audit-header .audit-top a img{
+	vertical-align: middle;
+	margin: 0 20px 0 36px;
+}
+.audit-header .audit-top>ul{
+	margin-left:191px;
+	display: inline-block;
+	cursor: pointer;
+	
+}
+.audit-header .audit-top>ul>li{
+	display: inline-block;
+	list-style: none;
+	font-size: 16px;
+	color:#fff;
+	font-weight: 700;
+	padding-right:20px;
+	padding-left: 20px;
+}
+.audit-header .audit-top>ul>li:hover{
+	color: #013f71;
+}
+.audit-header .audit-top>ul>li>.second-menu{
+	position: fixed;
+	background: #bcddf7;
+	left: 0;
+	width: 100%;
+	height: 46px;
+	line-height: 46px;
+	
+}
+.audit-header .audit-top>ul>li>.second-menu>li{
+	float: left;
+	list-style: none;
+}
+.audit-header .audit-top>ul>li>.second-menu>li:hover{
+	color: #001133;
+}
+.audit-header .audit-top>ul>li>.second-menu>li>a{
+	color: #1888e2;
+	font-size: 14px;
+	font-weight: bold;
+	text-decoration: none;
+}
+.audit-header .audit-top>p{
+	display: inline-block;
+	color:#fff;
+	float: right;
+	margin-right: 20px;
+	font-size: 20px;	
+	cursor:pointer;
+}
+.user-menu-box{
+	position: absolute;
+	top: 60px;
+	right: 20px;
+}
+.user-menu-box .triangle-top{
+	border: 8px solid transparent;
+	border-bottom: 8px solid #fff;
+	width: 0;
+	height: 0;
+	position: absolute;
+	top:-15px;
+	left:29px;
+	
+}
+.user-menu-box .user-menu-content{
+	background: #fff;
+	border:1px solid #ccc;
+	width: 80px;
+    height: 70px;
+    padding: 5px 0;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 5px #d1d1d1;
+}
+.user-menu-box>.user-menu-content>a{
+	display: inline-block;
+	height: 30px;
+	width: 100%;
+	line-height: 30px;
+	padding-left: 10px;
+	box-sizing: border-box;
+	cursor: pointer;
+	font-size: 13px;
+}
+.user-menu-box>.user-menu-content>a:hover{
+	background:#3f9ce7;
+	color:#fff;
+}

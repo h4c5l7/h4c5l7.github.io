@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../common/jquery-1.11.2.js" ></script>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.loading{
+				width: 100%;
+				height: 100%;
+				background: yellow;
+				position: fixed;
+				background: #fff;
+				
+			}
+			.loading>img{
+				position: absolute;
+				top:50%;
+				left:50%;
+				
+			}
+		</style>
+		<script>
+			document.onreadystatechange=function(){
+				if(document.readyState=='complete'){
+					$(".loading").fadeOut();
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="loading">
+			<img  src="25.gif"/>
+		</div>
+		<img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1506324627&di=91d67c1b1121ecaa50129441c2046b1c&src=http://pic.nipic.com/2007-12-05/2007125204033864_2.jpg"/>
+		<img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1506324627&di=91d67c1b1121ecaa50129441c2046b1c&src=http://pic.nipic.com/2007-12-05/2007125204033864_2.jpg"/>
+		<img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1506324627&di=91d67c1b1121ecaa50129441c2046b1c&src=http://pic.nipic.com/2007-12-05/2007125204033864_2.jpg"/>
+		<img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1506324627&di=91d67c1b1121ecaa50129441c2046b1c&src=http://pic.nipic.com/2007-12-05/2007125204033864_2.jpg"/>
+		<img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1506324627&di=91d67c1b1121ecaa50129441c2046b1c&src=http://pic.nipic.com/2007-12-05/2007125204033864_2.jpg"/>
+	</body>
+</html>

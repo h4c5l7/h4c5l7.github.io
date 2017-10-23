@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				background: #3f9ce7;
+			}
+			.my-i-tooltip{
+				position: relative;
+				top:100px;
+				left:100px;
+			}
+			.my-i-tooltip .tooltip-content{
+				width: 80px;
+				height: 70px;
+				background: #fff;
+				box-shadow:1px 1px 5px #ccc;
+			}
+			.my-i-tooltip .triangle-top{
+				width: 0;
+				height: 0;
+				border:7px solid transparent;
+				border-bottom:7px solid #fff;
+				position: absolute;
+				top: -14px;
+				left: 33px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="my-i-tooltip">
+			<div class="tooltip-content">
+				<a>修改密码</a>
+				<a>退出</a>
+			</div>
+			<div class="triangle-top"></div>
+		</div>
+	</body>
+</html>

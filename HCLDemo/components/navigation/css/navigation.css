@@ -1,0 +1,23 @@
+.common-topbar-nav{
+	background: #000;
+	height: 60px;
+	color:#fff;
+}
+.common-topbar-nav-list{
+	float:left;
+	list-style: none;
+	margin: 0 auto;
+	padding:0 auto;
+}
+.common-topbar-nav-list li{
+	float:left;
+	list-style: none;
+	padding: 0 16px;
+	height:60px;
+	line-height: 60px;
+}
+.common-topbar-nav-list li:hover{
+	color:#00c1de;
+	cursor: pointer;
+	border-bottom: 4px solid #00c1de;
+}
