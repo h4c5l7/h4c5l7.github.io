@@ -5,6 +5,7 @@
 }
 html,body{
 	width:100%;
+	height: 100%;
 }
 .audit-header{
 	position: relative;
@@ -121,4 +122,34 @@ html,body{
 }
 .user-menu-box:hover{
 	display: block;
+}
+.audit-main{
+	height: calc(100% - 70px);
+}
+.audit-main .audit-left{
+	display: inline-block;
+	width: 60px;
+	height: 100%;
+	position: absolute;
+	left: -60px;
+	top:0;
+	background: #e4edf4;
+}
+.audit-main .audit-left .add{
+	text-align: center;
+}
+#left-expand-btn{
+	position:fixed;
+	width:14px;
+	height:51px;
+	display:block;
+	left:0;
+	top: 50%;
+	cursor:pointer;
+}
+.left-out{
+	background:url("../imgs/left_out.png");
+}
+.left-in{	
+	background:url("../imgs/left_in.png");
 }
