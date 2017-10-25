@@ -125,25 +125,81 @@ html,body{
 }
 .audit-main{
 	height: calc(100% - 70px);
+	position: relative;
 }
 .audit-main .audit-left{
 	display: inline-block;
 	width: 60px;
 	height: 100%;
 	position: absolute;
-	left: -60px;
+	/*left: -60px;*/
+	left: 0;
 	top:0;
 	background: #e4edf4;
 }
 .audit-main .audit-left .add{
 	text-align: center;
 }
+.audit-main .audit-left>ul>li{
+	padding: 16px 5px;
+	font-size: 10px;
+	color: #2c99f1;
+	cursor: pointer;
+	text-align: center;
+	
+}
+.audit-main .audit-left>ul>li>span{
+	display: block;
+	margin-top:5px ;
+}
+.audit-main .audit-left>ul>li>i{
+	display: inline-block;
+	width: 24px;
+    height: 22px;
+	background-image: url(../imgs/common.png);
+	background-repeat:no-repeat;
+}
+
+.audit-main .audit-left>ul>li>i.icon-message{
+	background-position:-2px -130px;
+}
+.audit-main .audit-left>ul>li>i.icon-resource{
+	background-position:0px -153px;
+}
+.audit-main .audit-left>ul>li>i.icon-apply{
+	background-position:0px -86px;
+}
+.audit-main .audit-left>ul>li>i.icon-approve{
+	background-position:-1px -108px;
+}
+.audit-main .audit-left>ul>li>i.icon-baseQuery{
+	background-position:0px -43px;
+}
+.audit-main .audit-left>ul>li>i.icon-analyse{
+	background-position:0px 0px;
+}
+.audit-main .audit-left>ul>li>i.icon-guide{
+	background-position:0px -179px;
+}
+.audit-main .audit-left>ul>li>i.icon-sqlEdit{
+	background-position:0px -289px;
+}
+.audit-main .audit-left>ul>li>i.icon-directory{
+	background-position:0px -265px;
+}
+.audit-main .audit-left>ul>li>i.icon-knowledge{
+	background-position:0px -222px;
+}
+.audit-main .audit-left>ul>li>i.icon-wisdom{
+	background-position:0px -244px;
+}
 #left-expand-btn{
 	position:fixed;
 	width:14px;
 	height:51px;
 	display:block;
-	left:0;
+	/*left:0;*/
+	left: 60px;
 	top: 50%;
 	cursor:pointer;
 }

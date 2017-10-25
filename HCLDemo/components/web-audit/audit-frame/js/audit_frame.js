@@ -33,19 +33,25 @@ function addEvent(){
 	});
 	//左侧快捷方式的显示和隐藏
 	$(".audit-left").hover(function(){
-		if($("#left-expand-btn").hasClass("left-out")){
+		/*if($("#left-expand-btn").hasClass("left-out")){
 			$(".audit-left").animate({left:0});
 			$("#left-expand-btn").animate({left:"60px"});		
 			$("#left-expand-btn").removeClass("left-out").addClass("left-in");
-		}
+		}*/
 		
 	},function(){
-		if($("#left-expand-btn").hasClass("left-in")){
+		/*if($("#left-expand-btn").hasClass("left-in")){
 			$(".audit-left").animate({left:"-60px"});		
 			$("#left-expand-btn").animate({left:0});
 			$("#left-expand-btn").removeClass("left-in").addClass("left-out");
-		}
+		}*/
 	})
+}
+function altShortCut(){
+	var ulHeight = $(window).height()-70px;
+	if($(window).height()>ulHeight){
+		
+	}
 }
 $(function(){
 	addEvent();
