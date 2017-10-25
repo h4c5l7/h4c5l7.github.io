@@ -224,12 +224,11 @@ html,body{
 	transition: opacity 0.6s linear;
 }
 #modal-back.active{
-	opcity:1;/*完全不透明*/
+	opacity: 1;/*完全不透明*/
 	z-index: 10;
 }
 #modal{
 	width: 860px;
-	display:none;
 }
 #modal h3{
 	background: #2c99f1;

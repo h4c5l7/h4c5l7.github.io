@@ -48,7 +48,6 @@ function addEvent(){
 	})
 	//点击加号弹出添加快捷键的对话框
 	$(".add").on("click",function(){
-		debugger
 		$("#modal-back").addClass("active");
 	})
 }
