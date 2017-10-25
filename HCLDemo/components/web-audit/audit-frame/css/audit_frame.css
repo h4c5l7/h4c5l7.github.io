@@ -2,6 +2,7 @@
 	margin: 0;
 	padding: 0;
 	border:0;
+	font-family: "microsoft yahei";
 }
 html,body{
 	width:100%;
@@ -209,3 +210,86 @@ html,body{
 .left-in{	
 	background:url("../imgs/left_in.png");
 }
+
+/** modal的开始**/
+#modal-back{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	z-index: -10;
+	background: rgba(0, 0, 0, 0.4);
+	transition: opacity 0.6s linear;
+}
+#modal-back.active{
+	opcity:1;/*完全不透明*/
+	z-index: 10;
+}
+#modal{
+	width: 860px;
+	display:none;
+}
+#modal h3{
+	background: #2c99f1;
+	color:#fff;
+	font-size: 18px;
+	height: 50px;
+	line-height: 50px;
+	padding: 0px 20px;
+}
+#modal h3 i{
+	float: right;
+	width: 20px;
+	height: 20px;
+	background: url(../imgs/common.png) no-repeat -139px -116px;
+	cursor: pointer;
+	margin-top: 10px;
+}
+#modal .term>p{
+	height: 40px;
+	line-height: 40px;
+}
+#modal .term>p>i{
+	display: inline-block;
+    width: 10px;
+    height: 6px;
+    margin-left:5px;
+    background: url(../imgs/common.png) no-repeat -183px -165px;
+}
+#modal .term>ul{
+	background: #eef1f6;
+	height: 50px;
+	line-height: 50px;
+	padding-left: 34px;
+	padding-top: 9px;
+	box-sizing: border-box;
+}
+#modal .term>ul>li{
+	float: left;
+	list-style: none;
+	padding: 0px 12px;
+	font-size: 16px;
+	height: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	margin-right: 60px;
+	color: #666;
+}
+#modal>p{
+	    height: 72px;
+		background: #f7f7f7;
+		line-height: 72px;
+		text-align: center;
+}
+#modal>p button{
+	background: #2c99f1;
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	cursor: pointer;
+	color: #fff;
+	border-radius:5px;
+}
+/** modal的结束**/

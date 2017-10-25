@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			/** modal的开始**/
+			#modal{
+				width: 860px;
+			}
+			#modal h3{
+				background: #2c99f1;
+				color:#fff;
+				font-size: 18px;
+				height: 50px;
+				line-height: 50px;
+				padding: 0px 20px;
+			}
+			#modal h3 i{
+				float: right;
+				width: 20px;
+    			height: 20px;
+				background: url(audit-frame/imgs/common.png) no-repeat -139px -116px;
+				cursor: pointer;
+				margin-top: 10px;
+			}
+			#modal .term>p{
+				height: 40px;
+				line-height: 40px;
+			}
+			#modal .term>p>i{
+				display: inline-block;
+			    width: 10px;
+			    height: 6px;
+			    margin-left:5px;
+			    background: url(audit-frame/imgs/common.png) no-repeat -183px -165px;
+			}
+			#modal .term>ul{
+				background: #eef1f6;
+				height: 50px;
+				line-height: 50px;
+				padding-left: 34px;
+				padding-top: 9px;
+				box-sizing: border-box;
+			}
+			#modal .term>ul>li{
+				float: left;
+				list-style: none;
+				padding: 0px 12px;
+				font-size: 16px;
+				height: 32px;
+    			line-height: 32px;
+    			cursor: pointer;
+    			margin-right: 60px;
+    			color: #666;
+			}
+			#modal>p{
+				    height: 72px;
+    				background: #f7f7f7;
+    				line-height: 72px;
+    				text-align: center;
+			}
+			#modal>p button{
+				background: #2c99f1;
+				width: 100px;
+    			height: 40px;
+    			line-height: 40px;
+    			cursor: pointer;
+    			color: #fff;
+    			border-radius:5px;
+			}
+			/** modal的结束**/
+		</style>
+	</head>
+	<body>
+		<div id="modal">
+			<h3>添加快捷方式<i class="delete"></i></h3>
+			<div class="term">
+				<p>工作桌面<i class="down"></i></p>
+				<ul>
+					<li>我的消息</li>
+					<li>我的资源</li>
+					<li>我的申请</li>
+					<li>我的审批</li>
+				</ul>
+			</div>
+			<div class="term">
+				<p>基础查询<i class="down"></i></p>
+				<ul>
+					<li>基础查询</li>
+					<li>常用分析模型</li>
+					<li>向导式查询</li>
+					<li>SQL编辑器</li>
+				</ul>
+			</div>
+			<div class="term">
+				<p>数据资源<i class="down"></i></p>
+				<ul>
+					<li>资源目录</li>
+					<li>知识库</li>
+				</ul>
+			</div>
+			<div class="term">
+				<p>智慧搜索<i class="down"></i></p>
+				<ul>
+					<li>智慧搜索</li>
+				</ul>
+			</div>
+			<p>
+				<button>确定</button>
+			</p>
+		</div>
+	</body>
+</html>

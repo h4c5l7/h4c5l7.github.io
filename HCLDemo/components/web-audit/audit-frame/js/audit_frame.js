@@ -46,12 +46,17 @@ function addEvent(){
 			$("#left-expand-btn").removeClass("left-in").addClass("left-out");
 		}*/
 	})
+	//点击加号弹出添加快捷键的对话框
+	$(".add").on("click",function(){
+		debugger
+		$("#modal-back").addClass("active");
+	})
 }
-function altShortCut(){
-	var ulHeight = $(window).height()-70px;
+function altShortcut(){
+	/*var ulHeight = $(window).height()-70px;
 	if($(window).height()>ulHeight){
 		
-	}
+	}*/
 }
 $(function(){
 	addEvent();
