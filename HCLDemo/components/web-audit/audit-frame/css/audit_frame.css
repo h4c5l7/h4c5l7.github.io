@@ -138,6 +138,9 @@ html,body{
 	top:0;
 	background: #e4edf4;
 }
+.audit-main .audit-left>ul{
+	
+}
 .audit-main .audit-left .add{
 	text-align: center;
 }
@@ -229,6 +232,11 @@ html,body{
 }
 #modal{
 	width: 860px;
+	position: absolute;
+	top: 50%;
+    left: 50%;
+    margin-left: -430px;
+    margin-top: -241px;
 }
 #modal h3{
 	background: #2c99f1;
@@ -249,6 +257,8 @@ html,body{
 #modal .term>p{
 	height: 40px;
 	line-height: 40px;
+	background: #fff;
+	padding-left: 20px;
 }
 #modal .term>p>i{
 	display: inline-block;
@@ -275,6 +285,10 @@ html,body{
 	cursor: pointer;
 	margin-right: 60px;
 	color: #666;
+}
+#modal .term ul li.active {
+    background: #2c99f1;
+    color: #fff;
 }
 #modal>p{
 	    height: 72px;

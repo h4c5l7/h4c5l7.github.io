@@ -50,6 +50,34 @@ function addEvent(){
 	$(".add").on("click",function(){
 		$("#modal-back").addClass("active");
 	})
+	//快捷键对话框的快捷键选择，样式更改
+	$("#modal .term").on("click",">ul>li",function(){
+		if($(this).hasClass("active")){
+			$(this).removeClass("active");
+		}else{
+			$(this).addClass("active");
+		}
+	})
+	//关闭对话框
+	$("#modal").on("click",">h3>i",function(){
+		$("#modal-back").removeClass("active");
+	})
+	//确认按钮
+	$("#modal").on("click",">p>button",function(){
+		var shortcutArr = [];
+		//遍历li
+		$("#modal .term>ul>li.active").each(function(){
+			let shortcutObj = new Object();
+			shortcutObj.iconName = $(this).attr("iconName");
+			shortcutObj.shortcutName = $(this).text();
+			shortcutArr.push(shortcutObj);
+		})
+		let shortcutHtml = "";
+		for(let i=0;i<shortcutArr.length;i++){
+			shortcutHtml +="";
+		}
+		$("#modal-back").removeClass("active");
+	})
 }
 function altShortcut(){
 	/*var ulHeight = $(window).height()-70px;
