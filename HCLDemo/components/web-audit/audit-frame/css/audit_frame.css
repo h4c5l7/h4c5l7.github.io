@@ -133,10 +133,18 @@ html,body{
 	width: auto;
 	height: 100%;
 	position: absolute;
-	/*left: -60px;*/
 	left: 0;
 	top:0;
 	background: #e4edf4;
+}
+#left-expand-btn{
+	position:absolute;
+	width:14px;
+	height:51px;
+	display:block;
+	left:100%;
+	top: 50%;
+	cursor:pointer;
 }
 .audit-main .audit-left>ul{
 	float:left;
@@ -199,16 +207,7 @@ html,body{
 .audit-main .audit-left>ul>li>i.icon-wisdom{
 	background-position:0px -244px;
 }
-#left-expand-btn{
-	position:absolute;
-	width:14px;
-	height:51px;
-	display:block;
-	/*left:0;*/
-	left: 100%;
-	top: 50%;
-	cursor:pointer;
-}
+
 .left-out{
 	background:url("../imgs/left_out.png");
 }

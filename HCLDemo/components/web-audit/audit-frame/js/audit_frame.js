@@ -34,15 +34,15 @@ function addEvent(){
 	//左侧快捷方式的显示和隐藏
 	$(".audit-left").hover(function(){
 		if($("#left-expand-btn").hasClass("left-out")){
-			$(".audit-left").animate({left:0});
-			$("#left-expand-btn").animate({left:"60px"});		
+			$(".audit-left").stop().animate({left:0});
+			//$("#left-expand-btn").animate({left:"60px"});		
 			$("#left-expand-btn").removeClass("left-out").addClass("left-in");
 		}
 		
 	},function(){
 		if($("#left-expand-btn").hasClass("left-in")){
-			$(".audit-left").animate({left:"-60px"});		
-			$("#left-expand-btn").animate({left:0});
+			$(".audit-left").stop().animate({left:-$("#shortcut").width()});	
+			//$("#left-expand-btn").animate({left:0});
 			$("#left-expand-btn").removeClass("left-in").addClass("left-out");
 		}
 	})
@@ -72,32 +72,39 @@ function addEvent(){
 			shortcutObj.shortcutName = $(this).text();
 			shortcutArr.push(shortcutObj);
 		})
-		$("#shortcut").find("ul").remove();
-		let mathceil = Math.ceil((shortcutArr.length+1)/6);
-		for(let i=0;i<mathceil;i++){
-			$("#shortcut").append("<ul></ul>");
-		}
-		
-		$("#shortcut").find("ul").eq(0).append('<li class="add"><img src="imgs/icon_add.png" alt=""/></li>');
-		let k=0;
-		for(let j=0;j<shortcutArr.length;j++){
-			if((j+1)%6 !=0){
-				$("#shortcut").find("ul").eq(k).append('<li><i class="'+shortcutArr[j].iconName+'"></i><span>'+shortcutArr[j].shortcutName+'</span></li>');
-			}else{
-				k++;
-				$("#shortcut").find("ul").eq(k).append('<li><i class="'+shortcutArr[j].iconName+'"></i><span>'+shortcutArr[j].shortcutName+'</span></li>');
-			}
-		}
+		addShortcut(shortcutArr);
+		$(".audit-left").css("left",-$("#shortcut").width()+"px");
 		$("#modal-back").removeClass("active");
 	})
 }
-function altShortcut(){
-	/*var ulHeight = $(window).height()-70px;
-	if($(window).height()>ulHeight){
-		
-	}*/
+//初始化快捷键
+function initShortcut(shortcutArr){
+	addShortcut(shortcutArr);
+	$(".audit-left").css("left",-$("#shortcut").width()+"px");
+	$("#shortcut").show();
+}
+//添加快捷键的ul元素节点
+function addShortcut(shortcutArr){
+	$("#shortcut").find("ul").remove();
+	let mathceil = Math.ceil((shortcutArr.length+1)/6);
+	for(let i=0;i<mathceil;i++){
+		$("#shortcut").append("<ul></ul>");
+	}
+	
+	$("#shortcut").find("ul").eq(0).append('<li class="add"><img src="imgs/icon_add.png" alt=""/></li>');
+	let k=0;
+	for(let j=0;j<shortcutArr.length;j++){
+		if((j+1)%6 !=0){
+			$("#shortcut").find("ul").eq(k).append('<li><i class="'+shortcutArr[j].iconName+'"></i><span>'+shortcutArr[j].shortcutName+'</span></li>');
+		}else{
+			k++;
+			$("#shortcut").find("ul").eq(k).append('<li><i class="'+shortcutArr[j].iconName+'"></i><span>'+shortcutArr[j].shortcutName+'</span></li>');
+		}
+	}
 }
 $(function(){
+	var shortcutArrGlobal = [{"iconName":"icon-message","shortcutName":"我的消息"}];
 	addEvent();
+	initShortcut(shortcutArrGlobal);
 	//$(".audit-right").load("../myMessage/my-message.html");
 })
