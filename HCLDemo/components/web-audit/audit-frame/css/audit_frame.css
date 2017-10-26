@@ -130,7 +130,7 @@ html,body{
 }
 .audit-main .audit-left{
 	display: inline-block;
-	width: 60px;
+	width: auto;
 	height: 100%;
 	position: absolute;
 	/*left: -60px;*/
@@ -139,10 +139,11 @@ html,body{
 	background: #e4edf4;
 }
 .audit-main .audit-left>ul{
-	
+	float:left;
 }
 .audit-main .audit-left .add{
 	text-align: center;
+	margin-top: 17px;
 }
 .audit-main .audit-left>ul>li{
 	padding: 16px 5px;
@@ -150,7 +151,7 @@ html,body{
 	color: #2c99f1;
 	cursor: pointer;
 	text-align: center;
-	
+	list-style: none;
 }
 .audit-main .audit-left>ul>li>span{
 	display: block;
@@ -198,12 +199,12 @@ html,body{
 	background-position:0px -244px;
 }
 #left-expand-btn{
-	position:fixed;
+	position:absolute;
 	width:14px;
 	height:51px;
 	display:block;
 	/*left:0;*/
-	left: 60px;
+	left: 100%;
 	top: 50%;
 	cursor:pointer;
 }
