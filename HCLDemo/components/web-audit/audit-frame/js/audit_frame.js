@@ -33,21 +33,21 @@ function addEvent(){
 	});
 	//左侧快捷方式的显示和隐藏
 	$(".audit-left").hover(function(){
-		/*if($("#left-expand-btn").hasClass("left-out")){
+		if($("#left-expand-btn").hasClass("left-out")){
 			$(".audit-left").animate({left:0});
 			$("#left-expand-btn").animate({left:"60px"});		
 			$("#left-expand-btn").removeClass("left-out").addClass("left-in");
-		}*/
+		}
 		
 	},function(){
-		/*if($("#left-expand-btn").hasClass("left-in")){
+		if($("#left-expand-btn").hasClass("left-in")){
 			$(".audit-left").animate({left:"-60px"});		
 			$("#left-expand-btn").animate({left:0});
 			$("#left-expand-btn").removeClass("left-in").addClass("left-out");
-		}*/
+		}
 	})
 	//点击加号弹出添加快捷键的对话框
-	$(".add").on("click",function(){
+	$("#shortcut").on("click",'>ul>li.add',function(){
 		$("#modal-back").addClass("active");
 	})
 	//快捷键对话框的快捷键选择，样式更改
@@ -72,9 +72,21 @@ function addEvent(){
 			shortcutObj.shortcutName = $(this).text();
 			shortcutArr.push(shortcutObj);
 		})
-		let shortcutHtml = "";
-		for(let i=0;i<shortcutArr.length;i++){
-			shortcutHtml +="";
+		$("#shortcut").find("ul").remove();
+		let mathceil = Math.ceil((shortcutArr.length+1)/6);
+		for(let i=0;i<mathceil;i++){
+			$("#shortcut").append("<ul></ul>");
+		}
+		
+		$("#shortcut").find("ul").eq(0).append('<li class="add"><img src="imgs/icon_add.png" alt=""/></li>');
+		let k=0;
+		for(let j=0;j<shortcutArr.length;j++){
+			if((j+1)%6 !=0){
+				$("#shortcut").find("ul").eq(k).append('<li><i class="'+shortcutArr[j].iconName+'"></i><span>'+shortcutArr[j].shortcutName+'</span></li>');
+			}else{
+				k++;
+				$("#shortcut").find("ul").eq(k).append('<li><i class="'+shortcutArr[j].iconName+'"></i><span>'+shortcutArr[j].shortcutName+'</span></li>');
+			}
 		}
 		$("#modal-back").removeClass("active");
 	})
