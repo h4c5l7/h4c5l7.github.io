@@ -128,6 +128,7 @@ html,body{
 }
 .audit-main{
 	height: calc(100% - 70px);
+	background: #f4f4f4;
 	position: relative;
 }
 .audit-main .audit-left{
@@ -218,8 +219,9 @@ html,body{
 .left-in{	
 	background:url("../imgs/left_in.png");
 }
-.audit-right{
+.audit-main .audit-right{
 	width: 100%;
+	height: 100%;
 	float: left;
 	background: #f4f4f4;
 }

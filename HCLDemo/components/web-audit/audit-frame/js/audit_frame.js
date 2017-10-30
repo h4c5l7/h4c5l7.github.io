@@ -106,5 +106,5 @@ $(function(){
 	var shortcutArrGlobal = [/*{"iconName":"icon-message","shortcutName":"我的消息"}*/];
 	addEvent();
 	initShortcut(shortcutArrGlobal);
-	$(".audit-right").load("../my-message/my-message.html");
+	$(".audit-right").load("../my-message/message-index.html");
 })
