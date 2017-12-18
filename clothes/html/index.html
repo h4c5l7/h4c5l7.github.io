@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>clothes mainPage</title>
+		<script type="text/javascript" src="js/jquery-1.11.2.js" ></script>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				border:0;
+				font-family: "microsoft yahei";
+			}
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			body{
+				padding: 20px;
+				box-sizing: border-box;
+			}
+			.one,.two,.three,.four,.main{
+				font-size: 20px;
+    			font-weight: bolder;
+    			display: table;
+    			text-align: center;
+    			background-color: #E0EEEE;
+    			background-color:#9BD4F1;
+    			float: left;
+			}
+			.one>a,.two>a,.three>a,.four>a,.main>a{
+				display:table-cell;
+				vertical-align:middle;
+				cursor:pointer;
+			}
+			.one{
+				width:20%;
+				height: 80%;
+				border-left: 1px solid #8F8F8F;
+				border-top: 1px solid #8F8F8F;
+				box-sizing: border-box;
+			}
+			.main{
+				width:60%;
+				height: 80%;
+				border-top:1px solid #8F8F8F;
+				border-left: 1px solid #8F8F8F;
+				border-right: 1px solid #8F8F8F;
+				box-sizing: border-box;
+			}
+			.four{
+				width: 20%;
+				height: 80%;
+				border-top:1px solid #8F8F8F;
+				border-right: 1px solid #8F8F8F;
+				box-sizing: border-box;
+			}
+			.two{
+				width: 50%;
+				height: 20%;
+				border-top: 1px solid #8F8F8F;
+				border-right: 1px solid #8F8F8F;
+				border-left: 1px solid #8F8F8F;
+				border-bottom: 1px solid #8F8F8F;
+				box-sizing: border-box;
+			}
+			.three{
+				width: 50%;
+				height: 20%;
+				border-top: 1px solid #8F8F8F;
+				border-bottom: 1px solid #8F8F8F;
+				border-right: 1px solid #8F8F8F;
+				box-sizing: border-box;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="one"><a>一区</a></div>
+		<div class="main"><a>店名区域</a></div>
+		<div class="four"><a>四区</a></div>
+		<div class="two"><a>二区</a></div>
+		<div class="three"><a>三区</a></div>
+	</body>
+	<script>
+		var indexPage = {
+			initEvent:function(){
+				$("a").on('click',function(){
+					let className = $(this).parent().attr("class");
+					if(className != 'main'){
+						window.open("/"+className+".html");
+					}
+					
+				})
+				
+			}
+		}
+		indexPage.initEvent();
+	</script>
+</html>
