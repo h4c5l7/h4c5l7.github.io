@@ -6,45 +6,7 @@
 		<script type="text/javascript" src="js/jquery-1.11.2.js" ></script>
 		<script type="text/javascript" src="js/jquery.form.js" ></script>
 		<link rel="stylesheet" href="css/oper.css" />
-		<style>
-			*{
-				padding: 0;
-				margin: 0;
-				border: 0;
-				font-family: "microsoft yahei";
-			}
-			html,body{
-				width: 100%;
-				height: 100%;
-				overflow: hidden;
-			}
-			#two_table{
-				width: 65%;
-				height: 100%;
-				padding: 20px;
-				box-sizing: border-box;
-				float: left;
-			}
-			#two_table thead{
-				background-color: #9BD4F1;
-				background-color: #ccc;
-			}
-			#two_table tbody{
-				background-color: #B3EE3A;
-			}
-			#two_table thead tr td{
-				text-align: center;
-				height: 70px;
-				line-height: 70px;
-				font-size: 2em;
-				font-weight: bolder;
-			}
-			#two_table tr td{
-				text-align: center;
-				vertical-align: top;
-				border: 1px solid #000;
-			}
-		</style>
+		<link rel="stylesheet" href="css/area.css" />
 	</head>
 	<body>
 		<table id="two_table">
@@ -93,35 +55,44 @@
 				</li>
 			</ul>
 		</form>
+		<div id="show_button">存入订单</div>
 	</body>
 	<script>
 		$(document).ready(function() {
 			var twoPage = {
 			initPage:function(){
-				var array0=[1];
-				var array1=[2,3,4,5,6,7,8,9,10,11,12];
-				var array2=[13,14,15,16,17,18,19,20,21,22,23];
-				var array3=[24,25,26,27,28,29,30,31,32,33,34];
-				var array4=[35];
+				var arrayAll =[[1],[2,3,4,5,6,7,8,9,10,11,12],[13,14,15,16,17,18,19,20,21,22,23],[24,25,26,27,28,29,30,31,32,33,34],[35]];
 				var $tbody = $("#two_table tbody");
-				for(let i=1;i<=35;i++){
-					$("#store_id").append("<option value='two_"+i+"'>"+i+"</option");
+				for(let k=1;k<=35;k++){
+					$("#store_id").append("<option value='two_"+k+"'>"+k+"</option");
 				}
-				for(let i=0;i<array0.length;i++){
-					$tbody.find("tr").eq(0).append("<td colspan='11'>"+array0[i]+"</td>");
+				for(let i=0;i<arrayAll.length;i++){
+					for(let j=0;j<arrayAll[i].length;j++){
+						let $tr = $tbody.find("tr").eq(i);
+						if(i == 0 || i==4){
+							$tr.append("<td colspan='11' value='one_"+arrayAll[i][j]+"'><p>"+arrayAll[i][j]+"</p><div class='orderBox'></div></td>");
+						}else{
+							$tr.append("<td value='one_"+arrayAll[i][j]+"'><p>"+arrayAll[i][j]+"</p><div class='orderBox'></div></td>");
+						}
+						
+					}
 				}
-				for(let i=0;i<array1.length;i++){
-					$tbody.find("tr").eq(1).append("<td>"+array1[i]+"</td>");
-				}
-				for(let i=0;i<array2.length;i++){
-					$tbody.find("tr").eq(2).append("<td>"+array2[i]+"</td>");
-				}
-				for(let i=0;i<array3.length;i++){
-					$tbody.find("tr").eq(3).append("<td>"+array3[i]+"</td>");
-				}
-				for(let i=0;i<array4.length;i++){
-					$tbody.find("tr").eq(4).append("<td colspan='11'>"+array4[i]+"</td>");
-				}
+				$.ajax({
+					type:"post",
+					url:"/searchForTd",
+					async:true,
+					data:"area=two",
+					success:function(result){
+						$(JSON.parse(result)).each(function(index,element){
+							if(element._id.length>2){
+								$tbody.find("tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"'>"+element._id.substring(0,2)+"..</div>");
+							}else{
+								$tbody.find("tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"'>"+element._id.substring(0,2)+"</div>");
+							}
+							
+						})
+					}
+				});
 			},
 			//校验
 			verifyFun:function(){
@@ -138,7 +109,7 @@
 				var re = /^\d+(?=\.{0,1}\d+$|$)/;
 				var price =  $("#price").val();
 				if(!re.test(price)){
-					alert("价格请输入正确的数字");
+					alert("价格输入有误，请输入数字");
 					return false;
 				}
 				return true;
@@ -146,6 +117,48 @@
 			//初始化事件
 			initEvent:function(){
 				_this = this;
+				//td的点击事件
+				$("body").on("click",function(e){
+					var tdText;
+					if(e.target.tagName == 'TD'){
+						tdText = $(e.target).attr("value");
+					}
+					if(e.target.tagName == 'P'){
+						tdText = $(e.target).parent().attr("value");
+					}
+					if((e.target.tagName == 'TD' || e.target.tagName == 'P') && e.target.innerText != '一区'){
+						var clientX = e.clientX;
+						var clientY = e.clientY;
+						$("#show_button").css("left",clientX).css("top",clientY);
+						$("#show_button").show();
+						$("#store_id").find("option[value='"+tdText+"']").prop("selected",true);
+						$("body").on("click","#show_button",function(e2){
+							$("#orderNum").focus();
+							$("#show_button").hide();
+						})
+					}else{
+						$("#show_button").hide();
+					}
+				})
+				//出库
+				$("body").on("click",".orderStyle",function(e){
+					var e=window.event||e;
+    				e.stopPropagation();
+					var search_orderNum = $(this).attr("title");
+					if(confirm("订单"+search_orderNum+"是否需要出库？")){
+						//确认出库
+						//让 status变为2，
+						$.ajax({
+							url:"/pullOut_post",
+							type:"POST",
+							data:"_id="+search_orderNum,
+							success:function(result1){
+								$("div[title='"+search_orderNum+"']").remove();
+								alert(result1);
+							}
+						})
+					}
+				})
 				//查询订单
 				$("#searchBtn").on('click',function(){
 					var search_orderNum = $("#search_orderNum").val();
@@ -162,7 +175,9 @@
 								alert("在仓库内没有查询到该订单！");
 							}else{
 								//出库
-								if(confirm(result)){
+								param = JSON.parse(result);
+								var tipMess = "订单"+param._id+"存放在"+param.store_id+"号仓库中，是否需要出库？";
+								if(confirm(tipMess)){
 									//确认出库
 									//让 status变为2，
 									$.ajax({
@@ -170,6 +185,7 @@
 										type:"POST",
 										data:"_id="+search_orderNum,
 										success:function(result1){
+											$("div[title='"+param._id+"']").remove();
 											alert(result1);
 										}
 									})
@@ -179,13 +195,25 @@
 					})
 				})
 			}
-			
 		}
 		twoPage.initPage();
 		twoPage.initEvent();
 	    var options = {
 			success:function(data,statusText){
-				alert(data);
+				if(data == 0){
+					alert("该订单号已使用过！");
+				}
+				if(data == 1){
+					var orderNum = $("#orderNum").val();
+					var store_id = $("#store_id").val();
+					if(orderNum.length>2){
+						$("table tr td[value='"+store_id+"'] .orderBox").append("<div class='orderStyle' title='"+orderNum+"'>"+orderNum.substring(0,2)+"..</div>");
+					}else{
+						$("table tr td[value='"+store_id+"'] .orderBox").append("<div class='orderStyle' title='"+orderNum+"'>"+orderNum.substring(0,2)+"</div>");
+					}
+					
+					alert("入库成功！");
+				}
 			},
 			error:function(data){
 				alert(data.message);

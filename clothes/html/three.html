@@ -6,44 +6,7 @@
 		<script type="text/javascript" src="/js/jquery-1.11.2.js" ></script>
 		<script type="text/javascript" src="js/jquery.form.js" ></script>
 		<link rel="stylesheet" href="css/oper.css" />
-		<style>
-			*{
-				padding: 0;
-				margin: 0;
-				border: 0;
-				font-family: "microsoft yahei";
-			}
-			html,body{
-				width: 100%;
-				height: 100%;
-				overflow: hidden;
-			}
-			#three_table{
-				width: 65%;
-				height: 100%;
-				padding: 20px;
-				box-sizing: border-box;
-				float: left;
-			}
-			#three_table thead{
-				background:#ccc;
-			}
-			#three_table tbody{
-				background: #B3EE3A;
-			}
-			#three_table thead tr td{
-				text-align: center;
-				height: 70px;
-				line-height: 70px;
-				font-size: 2em;
-				font-weight: bolder;
-			}
-			#three_table tr td{
-				text-align: center;
-				vertical-align: top;
-				border: 1px solid #000;
-			}
-		</style>
+		<link rel="stylesheet" href="css/area.css" />
 	</head>
 	<body>
 		<table id="three_table">
@@ -89,31 +52,44 @@
 				</li>
 			</ul>
 		</form>
+		<div id="show_button">存入订单</div>
 	</body>
 	<script>
 		$(document).ready(function() {
 			var threePage = {
 			initPage:function(){
-				var array0=[1];
-				var array1=[2,3,4,5];
-				var array2=[6,7,8,9];
-				var array3=[10,11,12,13];
+				var arrayAll =[[1],[2,3,4,5],[6,7,8,9],[10,11,12,13]];
 				var $tbody = $("#three_table tbody");
-				for(let i=1;i<=13;i++){
-					$("#store_id").append("<option value='three_"+i+"'>"+i+"</option");
+				for(let k=1;k<=13;k++){
+					$("#store_id").append("<option value='three_"+k+"'>"+k+"</option");
 				}
-				for(let i=0;i<array0.length;i++){
-					$tbody.find("tr").eq(0).append("<td colspan='4'>"+array0[i]+"</td>");
+				for(let i=0;i<arrayAll.length;i++){
+					for(let j=0;j<arrayAll[i].length;j++){
+						let $tr = $tbody.find("tr").eq(i);
+						if(i == 0){
+							$tr.append("<td colspan='4' value='one_"+arrayAll[i][j]+"'><p>"+arrayAll[i][j]+"</p><div class='orderBox'></div></td>");
+						}else{
+							$tr.append("<td value='one_"+arrayAll[i][j]+"'><p>"+arrayAll[i][j]+"</p><div class='orderBox'></div></td>");
+						}
+						
+					}
 				}
-				for(let i=0;i<array1.length;i++){
-					$tbody.find("tr").eq(1).append("<td>"+array1[i]+"</td>");
-				}
-				for(let i=0;i<array2.length;i++){
-					$tbody.find("tr").eq(2).append("<td>"+array2[i]+"</td>");
-				}
-				for(let i=0;i<array3.length;i++){
-					$tbody.find("tr").eq(3).append("<td>"+array3[i]+"</td>");
-				}
+				$.ajax({
+					type:"post",
+					url:"/searchForTd",
+					async:true,
+					data:"area=two",
+					success:function(result){
+						$(JSON.parse(result)).each(function(index,element){
+							if(element._id.length>2){
+								$tbody.find("tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"'>"+element._id.substring(0,2)+"..</div>");
+							}else{
+								$tbody.find("tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"'>"+element._id.substring(0,2)+"</div>");
+							}
+							
+						})
+					}
+				});
 			},
 			//校验
 			verifyFun:function(){
@@ -130,7 +106,7 @@
 				var re = /^\d+(?=\.{0,1}\d+$|$)/;
 				var price =  $("#price").val();
 				if(!re.test(price)){
-					alert("价格请输入正确的数字");
+					alert("价格输入有误，请输入数字");
 					return false;
 				}
 				return true;
