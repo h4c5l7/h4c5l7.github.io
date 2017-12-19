@@ -5,6 +5,7 @@
 		<title>三区</title>
 		<script type="text/javascript" src="/js/jquery-1.11.2.js" ></script>
 		<script type="text/javascript" src="js/jquery.form.js" ></script>
+		<script type="text/javascript" src="js/area.js" ></script>
 		<link rel="stylesheet" href="css/oper.css" />
 		<link rel="stylesheet" href="css/area.css" />
 	</head>
@@ -18,7 +19,7 @@
 				<tr></tr>
 			</tbody>
 		</table>
-		<form id="threeForm" method="post" action="pullIn_post">
+		<form id="form" method="post" action="pullIn_post">
 			<ul>
 				<li class="search_li">
 					<h3>查询</h3>
@@ -55,115 +56,40 @@
 		<div id="show_button">存入订单</div>
 	</body>
 	<script>
-		$(document).ready(function() {
-			var threePage = {
-			initPage:function(){
-				var arrayAll =[[1],[2,3,4,5],[6,7,8,9],[10,11,12,13]];
-				var $tbody = $("#three_table tbody");
-				for(let k=1;k<=13;k++){
-					$("#store_id").append("<option value='three_"+k+"'>"+k+"</option");
+		initOnePage();
+		function initOnePage(){
+			var $tbody = $("table tbody");
+			var arrayAll =[[1],[2,3,4,5],[6,7,8,9],[10,11,12,13]];
+			for(let k=1;k<=13;k++){
+				$("#store_id").append("<option value='three_"+k+"'>"+k+"</option");
+			}
+			for(let i=0;i<arrayAll.length;i++){
+				for(let j=0;j<arrayAll[i].length;j++){
+					let $tr = $tbody.find("tr").eq(i);
+					if(i == 0){
+						$tr.append("<td colspan='4' value='three_"+arrayAll[i][j]+"'><p>"+arrayAll[i][j]+"</p><div class='orderBox'></div></td>");
+					}else{
+						$tr.append("<td value='three_"+arrayAll[i][j]+"'><p>"+arrayAll[i][j]+"</p><div class='orderBox'></div></td>");
+					}
+					
 				}
-				for(let i=0;i<arrayAll.length;i++){
-					for(let j=0;j<arrayAll[i].length;j++){
-						let $tr = $tbody.find("tr").eq(i);
-						if(i == 0){
-							$tr.append("<td colspan='4' value='one_"+arrayAll[i][j]+"'><p>"+arrayAll[i][j]+"</p><div class='orderBox'></div></td>");
+			}
+			$.ajax({
+				type:"post",
+				url:"/searchForTd",
+				async:true,
+				data:"area=three",
+				success:function(result){
+					$(JSON.parse(result)).each(function(index,element){
+						if(element._id.length>2){
+							$("table tbody tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"'>"+element._id.substring(0,2)+"..</div>");
 						}else{
-							$tr.append("<td value='one_"+arrayAll[i][j]+"'><p>"+arrayAll[i][j]+"</p><div class='orderBox'></div></td>");
+							$("table tbody tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"'>"+element._id.substring(0,2)+"</div>");
 						}
 						
-					}
-				}
-				$.ajax({
-					type:"post",
-					url:"/searchForTd",
-					async:true,
-					data:"area=two",
-					success:function(result){
-						$(JSON.parse(result)).each(function(index,element){
-							if(element._id.length>2){
-								$tbody.find("tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"'>"+element._id.substring(0,2)+"..</div>");
-							}else{
-								$tbody.find("tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"'>"+element._id.substring(0,2)+"</div>");
-							}
-							
-						})
-					}
-				});
-			},
-			//校验
-			verifyFun:function(){
-				var orderNum = $("#orderNum").val();
-				if(orderNum == false){
-					alert("请输入订单编号！");
-					return false;
-				}
-				var re2 =  /^[0-9a-zA-Z]*$/g;
-				if(!re2.test(orderNum)){
-					alert("订单编号只能输入数字和字母");
-					return false;
-				}
-				var re = /^\d+(?=\.{0,1}\d+$|$)/;
-				var price =  $("#price").val();
-				if(!re.test(price)){
-					alert("价格输入有误，请输入数字");
-					return false;
-				}
-				return true;
-			},
-			//初始化事件
-			initEvent:function(){
-				_this = this;
-				//查询订单
-				$("#searchBtn").on('click',function(){
-					var search_orderNum = $("#search_orderNum").val();
-					if(search_orderNum == ""){
-						alert("请输入订单编号查询！");
-						return false;
-					}
-					$.ajax({
-						url:"/search_post",
-						type:"POST",
-						data:"search_orderNum="+search_orderNum,
-						success:function(result){
-							if(result === false){
-								alert("在仓库内没有查询到该订单！");
-							}else{
-								//出库
-								if(confirm(result)){
-									//确认出库
-									//让 status变为2，
-									$.ajax({
-										url:"/pullOut_post",
-										type:"POST",
-										data:"_id="+search_orderNum,
-										success:function(result1){
-											alert(result1);
-										}
-									})
-								}
-							}
-						}
 					})
-				})
-			}
-			
+				}
+			});
 		}
-		threePage.initPage();
-		threePage.initEvent();
-	    var options = {
-			success:function(data,statusText){
-				alert(data);
-			},
-			error:function(data){
-				alert(data.message);
-			},
-			beforeSubmit:function(arr,$form,options){
-				return threePage.verifyFun();
-			}
-		};
-	    // bind form using 'ajaxForm' 
-	    $('#threeForm').ajaxForm(options).submit(function(){return false;}); 
-	 });	
 	</script>
 </html>
