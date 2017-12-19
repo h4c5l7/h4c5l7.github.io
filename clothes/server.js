@@ -13,6 +13,12 @@ app.use(express.static('public'));
 app.get('/index.html',function(req,res){
 	res.sendFile(__dirname+'/html/index.html','utf8');
 })
+app.get('/body.html',function(req,res){
+	res.sendFile(__dirname+'/html/body.html','utf8');
+})
+app.get('/search.html',function(req,res){
+	res.sendFile(__dirname+'/html/search.html','utf8');
+})
 app.get('/one.html',function(req,res){
 	res.sendFile(__dirname+'/html/one.html','utf8');
 })
@@ -31,7 +37,7 @@ app.get('/oper.html',function(req,res){
 /*填满格子*/
 app.post('/searchForTd',urlencodedParser,function(req,res){
 	var db = connectDataBase();
-	db.all("select _id,store_id from clothing_jour where store_id like ? and status=?",[req.body.area+"%",1],function(err,row){
+	db.all("select _id,store_id from clothing_jour where status=?",[1],function(err,row){
 	   // 输出 JSON 格式
 	   res.end(JSON.stringify(row));
 	   db.close(function(e){
