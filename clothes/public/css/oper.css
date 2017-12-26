@@ -25,6 +25,17 @@ form input[type='text']{
 	box-sizing: border-box;
 	margin-left:20px;
 }
+input[type=submit],input[type=button]{
+	width: 70px;
+	height: 30px;
+	background:#00C1DE;
+	color:#fff;
+}
+input[type=submit]:hover,input[type=button]:hover{
+	background:#009688;
+	color:#fff;
+	cursor: pointer;
+}
 form label{
 	font-size: 13px;
 	color:#3C3C3C;

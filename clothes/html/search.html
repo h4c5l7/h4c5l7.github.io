@@ -3,18 +3,79 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>查询</title>
-		<script type="text/javascript" src="js/laydate.js" ></script>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-table.min.css" />
+		<script type="text/javascript" src="js/jquery-1.11.2.js" ></script>
+		<script type="text/javascript" src="js/jquery.form.js" ></script>
+		<script type="text/javascript" src="js/laydate/laydate.js" ></script>
+		<script type="text/javascript" src="js/laydate/laydate.js" ></script>
+		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table-zh-CN.min.js" ></script>
+		<script type="text/javascript" src="js/search.js" ></script>
+		<link rel="stylesheet" href="css/search.css" />
 	</head>
 	<body>
-		<label>编号</label>
-		<input type="text" />
-		<label>状态</label>
-		<select>
-			<option>全部</option>
-			<option>已出库</option>
-			<option>未出库</option>
-		</select>
-		<label>日期</label>
-		<button>查询</button>
+		<form id="searchForm" action="all_search" method="post">
+			<ul>
+				<li>
+					<label>编号</label>
+					<input type="text" name="_id"/>
+				</li>
+				<li>
+					<label>状态</label>
+					<select name="status">
+						<option value="">全部</option>
+						<option value="2">已出库</option>
+						<option value="1">未出库</option>
+					</select>
+				</li>
+				<li>
+					<input type="checkbox" id="dateCheckbox"/>
+					<input type="text" value='0' name="dateCheckbox" style="display: none;"/>
+					<label>日期</label>
+					<input type="text" id="startDate" name="startDate" disabled="true">&nbsp;&nbsp;&nbsp;到<input type="text" id="endDate" name="endDate" disabled="true">
+					<input type="submit" id="pullInStorageBtn" value="查询"/>
+					<input type="text" style="display: none;" name="startDate1" id="startDate1"/>
+					<input type="text" style="display: none;" name="endDate1" id="endDate1"/>
+				</li>
+			</ul>
+		</form>
+			<table id="searchTable" class="table table-bordered itswTable" data-unique-id="id" >
+				<!--<thead>
+					<tr>
+						<th data-field="id" data-formatter="indexNum">序号</th>
+						<th data-field="_id">客户编号</th>
+						<th data-field="store_id">存放位置</th>
+						<th data-field="price">价格</th>
+						<th data-field="state">状态</th>
+						<th data-field="_date">日期</th>
+						<th data-field="remark">备注</th>
+						<th data-field="" data-formatter="operate">操作</th>
+					</tr>
+				</thead>-->
+			</table>
+		<script>
+			var myDate = new Date();
+			var dateStr = myDate.getFullYear()+"-"+(myDate.getMonth()+1)+"-"+myDate.getDate();
+			laydate.render({
+			  elem: '#startDate', //指定元素
+			  value: dateStr
+			});
+			laydate.render({
+			  elem: '#endDate',//指定元素
+			  value:dateStr
+			});
+			//table 序号	
+		 	function indexNum(value, row, index) {
+				return index + 1;
+			}
+		 	function operate(value,row,index){
+		 		if(row.status == '1'){
+		 			return "<a href='javascript:void(0);' data-id="+row._id+">出库</a>";
+		 		}
+		 	}
+		 	
+		</script>
 	</body>
 </html>

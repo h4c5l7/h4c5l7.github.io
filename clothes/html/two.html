@@ -84,12 +84,12 @@
 					data:"area=two",
 					success:function(result){
 						$(JSON.parse(result)).each(function(index,element){
-							if(element._id.length>2){
-								$("table tbody tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"'>"+element._id.substring(0,2)+"..</div>");
+							var _id = element._id +"";
+							if(_id.length>2){
+								$("table tbody tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"'>"+_id.substring(0,2)+"..</div>");
 							}else{
-								$("table tbody tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"'>"+element._id.substring(0,2)+"</div>");
+								$("table tbody tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"'>"+_id.substring(0,2)+"</div>");
 							}
-							
 						})
 					}
 				});

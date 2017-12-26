@@ -18,6 +18,8 @@ $(document).ready(function() {
 					alert("价格输入有误，请输入数字");
 					return false;
 				}
+				$("#_idInt").val(parseInt(orderNum));
+				var _idInt = $("#_idInt").val();
 				return true;
 			},
 			//初始化事件
@@ -57,7 +59,7 @@ $(document).ready(function() {
 						$.ajax({
 							url:"/pullOut_post",
 							type:"POST",
-							data:"_id="+search_orderNum,
+							data:"_id="+search_orderNum+"&_idInt="+parseInt(search_orderNum),
 							success:function(result1){
 								$("div[title='"+search_orderNum+"']").remove();
 								alert(result1);
@@ -75,13 +77,13 @@ $(document).ready(function() {
 					$.ajax({
 						url:"/search_post",
 						type:"POST",
-						data:"search_orderNum="+search_orderNum,
+						data:"search_orderNum="+search_orderNum+"&_idInt="+parseInt(search_orderNum),
 						success:function(result){
 							if(result === false){
 								alert("在仓库内没有查询到该订单！");
 							}else{
 								//出库
-								param = JSON.parse(result);
+								var param = JSON.parse(result);
 								var tipMess = "订单"+param._id+"存放在"+param.store_id+"号仓库中，是否需要出库？";
 								if(confirm(tipMess)){
 									//确认出库
@@ -89,7 +91,7 @@ $(document).ready(function() {
 									$.ajax({
 										url:"/pullOut_post",
 										type:"POST",
-										data:"_id="+search_orderNum,
+										data:"_id="+search_orderNum+"&_idInt="+parseInt(search_orderNum),
 										success:function(result1){
 											$("div[title='"+param._id+"']").remove();
 											alert(result1);
