@@ -52,15 +52,16 @@ $(document).ready(function(){
 	 			}
 	 			
 	 		})
-	 		//出库标签点击事件
+	 		//出库a标签点击事件
 	 		$("#searchTable").on('click',"a",function(){
+	 			var _this = $(this);
 	 			var dataId = $(this).attr("data-id");
 	 			$.ajax({
 					url:"/pullOut_post",
 					type:"POST",
 					data:"_id="+dataId,
 					success:function(result1){
-						$(this).parent().parent().remove();
+						_this.parent().parent().remove();
 						alert(result1);
 					}
 				})

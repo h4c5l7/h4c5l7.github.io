@@ -4,6 +4,10 @@
 	border:0;
 	font-family: "microsoft yahei";
 }
+body{
+	overflow: hidden;
+	width: 100%;
+}
 ul{
 	list-style: none;
 	background: #f5fbfa;
@@ -11,14 +15,9 @@ ul{
 	padding: 20px 20px;
 }
 
-#table-container{
-	height: 400px;
-    overflow: auto;
-    width: 60%;
-    margin-left: 20px;
-}
 #searchTable{
     width: 800px;
+    height: 400px;
     margin-left: 20px;
 }
 #searchTable thead{
@@ -37,7 +36,7 @@ ul{
 #searchTable tbody{
 	overflow: hidden;
 	overflow-y: scroll;
-	height: 400px;
+	height: 340px;
 	width: 817px;
 	display: block;
 }

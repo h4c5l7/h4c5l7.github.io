@@ -72,25 +72,13 @@ app.post('/searchForTd',urlencodedParser,function(req,res){
 /*右侧查询*/
 app.post('/search_post',urlencodedParser,function(req,res){
 	var search_orderNum = req.body.search_orderNum;
-	var _idInt = req.body._idInt;
 	var db = connectDataBase();
-	db.get("SELECT _id,store_id FROM clothing_jour where _id=? and status=?",[search_orderNum,1],function(err,row){
-		console.log(row);
+	db.get("SELECT _id,store_id FROM clothing_jour where (_id=? or _id=?) and status=?",[search_orderNum,parseInt(search_orderNum),1],function(err,row){
 		if(row == undefined){
-			db.get("select _id store_id from clothing_jour where _id=? and status=?",[_idInt,1],function(err,row1){
-				console.log(row1)
-				if(row1 == undefined){
-					res.send(false);
-				}else{
-					var param = {"_id":row1._id,"store_id":row1.store_id};
-					res.end(JSON.stringify(param));
-				}
-			})
+			res.send(false);
 		}else{
 			var param = {"_id":row._id,"store_id":row.store_id};
 			res.end(JSON.stringify(param));
-			//res.send("订单"+row._id+"存放在"+row.store_id+"号仓库中，是否需要出库？");
-			
 		}
 		db.close(function(e){
 	   		if(e) throw e;
@@ -102,7 +90,7 @@ app.post('/pullIn_post',urlencodedParser,function(req,res){
 	// 输出 JSON 格式
    var db = connectDataBase();
    //先查询在一区中是否已经使用了该订单号
-   db.each("SELECT count(1) as count FROM clothing_jour where _id=?",[req.body.orderNum],function(err,row){
+   db.each("SELECT count(1) as count FROM clothing_jour where _id=? or _id=?",[req.body.orderNum,parseInt(req.body.orderNum)],function(err,row){
    		if(err) throw err;
    		if(row.count>0){
    			res.send("0");
@@ -123,8 +111,8 @@ app.post('/pullIn_post',urlencodedParser,function(req,res){
 app.post('/pullOut_post',urlencodedParser,function(req,res){
 	 var db = connectDataBase();
 	 console.log(req.body._id);
-	 var stmt = db.prepare("UPDATE clothing_jour set status=? where _id =?");
-	 stmt.run(2, req.body._id);
+	 var stmt = db.prepare("UPDATE clothing_jour set status=? where _id =? or _id=?");
+	 stmt.run(2, req.body._id,parseInt(req.body._id));
 	 stmt.finalize();
 	 db.close(function(e){
    		if(e) throw e;
