@@ -7,32 +7,93 @@ var bodyParser = require("body-parser");
 var urlencodedParser = bodyParser.urlencoded({extended:false});
 var sqlite3 = require('sqlite3');
 var sd = require('silly-datetime');
-
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var app = express();
 app.use(express.static('public'));
+app.use(cookieParser('sessionClothes'));
+app.use(session({
+    secret: 'sessionClothes',//与cookieParser中的一致
+    resave: true,
+    saveUninitialized:true
+}));
+app.get('/login.html',function(req,res){
+	if(req.session.user){
+		res.redirect(302,'/index.html');
+	}else{
+		res.sendFile(__dirname+'/html/login.html','utf8');
+	}
+})
 app.get('/index.html',function(req,res){
-	res.sendFile(__dirname+'/html/index.html','utf8');
+	if(req.session.user){
+		res.sendFile(__dirname+'/html/index.html','utf8');
+	}else{
+		res.redirect(302,'/login.html');
+	}
+	
 })
 app.get('/body.html',function(req,res){
-	res.sendFile(__dirname+'/html/body.html','utf8');
+	if(req.session.user){
+		res.sendFile(__dirname+'/html/body.html','utf8');
+	}else{
+		res.redirect(302,'/login.html');
+	}
+	
 })
 app.get('/search.html',function(req,res){
-	res.sendFile(__dirname+'/html/search.html','utf8');
+	if(req.session.user){
+		res.sendFile(__dirname+'/html/search.html','utf8');
+	}else{
+		res.redirect(302,'/login.html');
+	}
 })
 app.get('/one.html',function(req,res){
-	res.sendFile(__dirname+'/html/one.html','utf8');
+	if(req.session.user){
+		res.sendFile(__dirname+'/html/one.html','utf8');
+	}else{
+		res.redirect(302,'/login.html');
+	}
 })
 app.get('/two.html',function(req,res){
-	res.sendFile(__dirname+'/html/two.html','utf8');
+	if(req.session.user){
+		res.sendFile(__dirname+'/html/two.html','utf8');
+	}else{
+		res.redirect(302,'/login.html');
+	}
 })
 app.get('/three.html',function(req,res){
-	res.sendFile(__dirname+'/html/three.html','utf8');
+	if(req.session.user){
+		res.sendFile(__dirname+'/html/three.html','utf8');
+	}else{
+		res.redirect(302,'/login.html');
+	}
 })
 app.get('/four.html',function(req,res){
-	res.sendFile(__dirname+'/html/four.html','utf8');
+	if(req.session.user){
+		res.sendFile(__dirname+'/html/four.html','utf8');
+	}else{
+		res.redirect(302,'/login.html');
+	}
 })
 app.get('/oper.html',function(req,res){
-	res.sendFile(__dirname+'/html/oper.html','utf-8');
+	if(req.session.user){
+		res.sendFile(__dirname+'/html/oper.html','utf-8');
+	}else{
+		res.redirect(302,'/login.html');
+	}
+})
+//登录校验
+app.post('/login',urlencodedParser,function(req,res){
+	var db = connectDataBase();
+	db.get('select name,password from user where name=? and password=?',[req.body.name,req.body.password],function(err,row){
+		if(row != undefined){
+			req.session.user = row;
+			res.send(true);
+		}else{
+			res.send(false);
+		}
+		db.close(function(e){if(e) throw e;});
+	})
 })
 /*库存具体查询*/
 app.post('/all_search',urlencodedParser,function(req,res){
@@ -110,7 +171,6 @@ app.post('/pullIn_post',urlencodedParser,function(req,res){
 //出库
 app.post('/pullOut_post',urlencodedParser,function(req,res){
 	 var db = connectDataBase();
-	 console.log(req.body._id);
 	 var stmt = db.prepare("UPDATE clothing_jour set status=? where _id =? or _id=?");
 	 stmt.run(2, req.body._id,parseInt(req.body._id));
 	 stmt.finalize();
