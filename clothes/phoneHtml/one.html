@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>一区</title>
+		<script type="text/javascript" src="js/jquery-1.11.2.js" ></script>
+		<script type="text/javascript" src="js/jquery.form.js" ></script>
+		<script type="text/javascript" src="js/area.js" ></script>
+		<link rel="stylesheet" href="css/oper.css" />
+		<link rel="stylesheet" href="css/area.css" />
+	</head>
+	<body>
+		<table id="one_table">
+			<tbody>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+			</tbody>
+		</table>
+		<form id="form" method="post" action="pullIn_post">
+			<ul>
+				<li class="search_li">
+					<h3>查询</h3>
+					<p>
+						<label>订单编号</label>
+						<input type="text" id="search_orderNum" name="search_orderNum"/>
+						<input id="searchBtn" type="button" value="查询订单">
+					</p>
+				</li>
+				<li class="into_li">
+					<h3>入库</h3>
+					<ul>
+						<li>
+							<label>订单编号</label>
+							<input type="text" id="orderNum" name="orderNum"/>
+							<input type="submit" id="pullInStorageBtn" value="入库"/>
+						</li>
+						<li>
+							<label>存放位置</label>
+							<select id="store_id" name="store_id"></select>
+						</li>
+						<li>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价格</label>
+							<input type="text" id="price" name="price"/>
+						</li>
+						<li>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</label>
+							<textarea id="remark" name="remark"></textarea>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</form>
+		<div id="show_button">存入订单</div>
+	</body>
+	<script>
+		initOnePage();
+		function initOnePage(){
+			var $tbody = $("table tbody");
+			var arrayAll = [[1],[2,3,4,5,6,7,8,9,10,11,12],[13,14,15,16,17,18,19,20,21,22,23],[24,25,26,27,28,29],['一区',30,31,32,33,34],[35,36,37,38,39],[40,41,42,43,44,45,46,47,48,49,50]];
+			for(let k=1;k<=50;k++){
+				$("#store_id").append("<option value='"+k+"'>"+k+"</option");
+			}
+			for(let i=0;i<arrayAll.length;i++){
+				for(let j=0;j<arrayAll[i].length;j++){
+					let $tr = $tbody.find("tr").eq(i);
+					if(i == 0){
+						$tr.append("<td colspan='11' value='"+arrayAll[i][j]+"'><p>"+arrayAll[i][j]+"</p><div class='orderBox'></div></td>");
+					}else
+					if(i == 3){
+						if(j==0){
+							$tr.append("<td colspan='6' value='"+arrayAll[i][j]+"'><p>"+arrayAll[i][j]+"</p><div class='orderBox'></div></td>");
+						}else{
+							$tr.append("<td value='"+arrayAll[i][j]+"'><p>"+arrayAll[i][j]+"</p><div class='orderBox'></div></td>");
+						}
+					}else
+					if(i == 4){
+						if(j == 0){
+							$tr.append("<td rowspan='2' colspan='6' style='background:#ccc;vertical-align: middle;' value='"+arrayAll[i][j]+"'><p>"+arrayAll[i][j]+"</p><div class='orderBox'></div></td>");
+						}else{
+							$tr.append("<td value='"+arrayAll[i][j]+"'><p>"+arrayAll[i][j]+"</p><div class='orderBox'></div></td>");
+						}
+					}else{
+						$tr.append("<td value='"+arrayAll[i][j]+"'><p>"+arrayAll[i][j]+"</p><div class='orderBox'></div></td>");
+					}
+				}
+			}
+			$.ajax({
+					type:"post",
+					url:"/searchForTd",
+					async:true,
+					data:"area=one",
+					success:function(result){
+						$(JSON.parse(result)).each(function(index,element){
+							var _id = element._id +"";
+							if(_id.length>2){
+								$("table tbody tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"'>"+_id.substring(0,2)+"..</div>");
+							}else{
+								$("table tbody tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"'>"+_id.substring(0,2)+"</div>");
+							}
+							
+						})
+					}
+				});
+		}
+	</script>
+</html>

@@ -1,0 +1,78 @@
+ul{
+	list-style: none;
+}
+form{
+	width: 35%;
+	height: 100%;
+	float: left;
+	padding: 20px 20px 20px 0px;
+	box-sizing: border-box;
+}
+form ul{
+	height: 100%;
+}
+form h3{
+	padding: 10px;
+	font-size: 16px;
+}
+form input[type='text']{
+	width: 270px;
+	height:30px;
+	font-size: 13px;
+	color: #3c3c3c;
+	background-image: none;
+	border: 1px solid #e5e6e7;
+	box-sizing: border-box;
+	margin-left:20px;
+}
+input[type=submit],input[type=button]{
+	width: 70px;
+	height: 30px;
+	background:#00C1DE;
+	color:#fff;
+}
+input[type=submit]:hover,input[type=button]:hover{
+	background:#009688;
+	color:#fff;
+	cursor: pointer;
+}
+form label{
+	font-size: 13px;
+	color:#3C3C3C;
+	margin-left:20px;
+}
+form select{
+	width: 270px;
+	height:30px;
+	line-height: 30px;
+	margin-left:20px;
+}
+form select option{
+	font-size: 14px;
+	font-weight: 400;
+}
+form button{
+	margin-left: 20px;
+}
+form textarea{
+	width: 270px;
+	height:70px;
+	margin-left: 20px;
+	vertical-align:top;
+}
+form .into_li>ul>li{
+	margin-bottom: 10px;
+}
+form>ul>li:nth-child(1){
+	height: 40%;
+	margin-bottom: 10px;
+}
+form>ul>li:nth-child(2){
+	height: calc(60% - 10px);
+}
+form>ul>li{
+	background: #f5fbfa;
+}
+form>ul>search_li>p{
+	padding: 0px 10px 10px 10px;
+}

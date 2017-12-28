@@ -10,7 +10,7 @@ var sd = require('silly-datetime');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var app = express();
-app.use(express.static('public'));
+app.use(express.static('phonePublic'));
 app.use(cookieParser('sessionClothes'));
 app.use(session({
     secret: 'sessionClothes',//与cookieParser中的一致
@@ -21,12 +21,12 @@ app.get('/login.html',function(req,res){
 	if(req.session.user){
 		res.redirect(302,'/index.html');
 	}else{
-		res.sendFile(__dirname+'/html/login.html','utf8');
+		res.sendFile(__dirname+'/phoneHtml/login.html','utf8');
 	}
 })
 app.get('/index.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/index.html','utf8');
+		res.sendFile(__dirname+'/phoneHtml/index.html','utf8');
 	}else{
 		res.redirect(302,'/login.html');
 	}
@@ -34,7 +34,7 @@ app.get('/index.html',function(req,res){
 })
 app.get('/body.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/body.html','utf8');
+		res.sendFile(__dirname+'/phoneHtml/body.html','utf8');
 	}else{
 		res.redirect(302,'/login.html');
 	}
@@ -42,42 +42,42 @@ app.get('/body.html',function(req,res){
 })
 app.get('/search.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/search.html','utf8');
+		res.sendFile(__dirname+'/phoneHtml/search.html','utf8');
 	}else{
 		res.redirect(302,'/login.html');
 	}
 })
 app.get('/one.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/one.html','utf8');
+		res.sendFile(__dirname+'/phoneHtml/one.html','utf8');
 	}else{
 		res.redirect(302,'/login.html');
 	}
 })
 app.get('/two.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/two.html','utf8');
+		res.sendFile(__dirname+'/phoneHtml/two.html','utf8');
 	}else{
 		res.redirect(302,'/login.html');
 	}
 })
 app.get('/three.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/three.html','utf8');
+		res.sendFile(__dirname+'/phoneHtml/three.html','utf8');
 	}else{
 		res.redirect(302,'/login.html');
 	}
 })
 app.get('/four.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/four.html','utf8');
+		res.sendFile(__dirname+'/phoneHtml/four.html','utf8');
 	}else{
 		res.redirect(302,'/login.html');
 	}
 })
 app.get('/oper.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/oper.html','utf-8');
+		res.sendFile(__dirname+'/phoneHtml/oper.html','utf-8');
 	}else{
 		res.redirect(302,'/login.html');
 	}
@@ -179,7 +179,7 @@ app.post('/pullOut_post',urlencodedParser,function(req,res){
    	 });
    	 res.send("出库成功！");
 });
-app.listen(8888);
+app.listen(9999);
 //创建sqlite连接
 function connectDataBase(){
 	var db = new sqlite3.Database('clothing.db3',sqlite3.OPEN_READWRITE,function(err){
@@ -197,4 +197,4 @@ function connectDataBase(){
 }).listen(8888);
 */
 // 终端打印如下信息
-console.log('Server running at http://127.0.0.1:8888/');
+console.log('Server running at http://127.0.0.1:9999/');
