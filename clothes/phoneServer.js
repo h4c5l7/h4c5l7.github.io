@@ -17,6 +17,9 @@ app.use(session({
     resave: true,
     saveUninitialized:true
 }));
+app.get('/test.html',function(req,res){
+	res.sendFile(__dirname+'/phoneHtml/new_file.html','utf8');
+})
 app.get('/login.html',function(req,res){
 	if(req.session.user){
 		res.redirect(302,'/index.html');

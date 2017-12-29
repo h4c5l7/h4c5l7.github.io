@@ -8,6 +8,8 @@
 		<title>查询</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" href="css/bootstrap-table.min.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/search.css" />
 		<script type="text/javascript" src="js/jquery-1.11.2.js" ></script>
 		<script type="text/javascript" src="js/jquery.form.js" ></script>
 		<script type="text/javascript" src="js/laydate/laydate.js" ></script>
@@ -16,7 +18,7 @@
 		<script type="text/javascript" src="js/bootstrap-table.min.js" ></script>
 		<script type="text/javascript" src="js/bootstrap-table-zh-CN.min.js" ></script>
 		<script type="text/javascript" src="js/search.js" ></script>
-		<link rel="stylesheet" href="css/search.css" />
+		
 	</head>
 	<body>
 		<form id="searchForm" action="all_search" method="post">
@@ -44,20 +46,15 @@
 				</li>
 			</ul>
 		</form>
-			<table id="searchTable" class="table table-bordered itswTable" data-unique-id="id" >
-				<!--<thead>
-					<tr>
-						<th data-field="id" data-formatter="indexNum">序号</th>
-						<th data-field="_id">客户编号</th>
-						<th data-field="store_id">存放位置</th>
-						<th data-field="price">价格</th>
-						<th data-field="state">状态</th>
-						<th data-field="_date">日期</th>
-						<th data-field="remark">备注</th>
-						<th data-field="" data-formatter="operate">操作</th>
-					</tr>
-				</thead>-->
-			</table>
+		<div class="panel panel-default">
+			<div class="panel-body">
+	            <div class="table-responsive">
+					<table id="searchTable" class="table table-bordered" data-unique-id="id" >
+						
+					</table>
+				</div>
+			</div>
+		</div>
 		<script>
 			var myDate = new Date();
 			var dateStr = myDate.getFullYear()+"-"+(myDate.getMonth()+1)+"-"+myDate.getDate();

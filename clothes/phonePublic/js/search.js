@@ -11,8 +11,7 @@ $(document).ready(function(){
 					{field:'status',title:'状态'},
 					{field:'_date',title:'日期'},
 					{field:'remark',title:'备注'},
-					{field:'remark',title:'操作',formatter:'operate'},
-					{field:'space',title:''}
+					{field:'remark',title:'操作',formatter:'operate'}
 				];
 				$("#searchTable").bootstrapTable({
 					columns:columns,
