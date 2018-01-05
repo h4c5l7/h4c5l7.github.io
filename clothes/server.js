@@ -17,16 +17,31 @@ app.use(session({
     resave: true,
     saveUninitialized:true
 }));
-app.get('/login.html',function(req,res){
-	if(req.session.user){
-		res.redirect(302,'/index.html');
+
+function ismobile(req){
+	var deviceAgent = req.headers["user-agent"].toLowerCase();
+	var agentID = deviceAgent.match(/(iphone|ipod|ipad|android)/);
+	if(agentID){
+		//指到手机、pad的网页
+		return "/phoneHtml";
 	}else{
-		res.sendFile(__dirname+'/html/login.html','utf8');
+		//指到pc网页
+		return "/html";
 	}
+}
+app.get('/',function(req,res){
+	if(req.session.user){
+		res.sendFile(__dirname+ismobile(req)+"/index.html",'utf8');
+	}else{
+		res.sendFile(__dirname+ismobile(req)+"/login.html",'utf8');
+	}
+})
+app.get('/login.html',function(req,res){
+    res.sendFile(__dirname+ismobile(req)+'/login.html','utf8');
 })
 app.get('/index.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/index.html','utf8');
+		res.sendFile(__dirname+ismobile(req)+'/index.html','utf8');
 	}else{
 		res.redirect(302,'/login.html');
 	}
@@ -34,52 +49,52 @@ app.get('/index.html',function(req,res){
 })
 app.get('/body.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/body.html','utf8');
+		res.sendFile(__dirname+ismobile(req)+'/body.html','utf8');
 	}else{
-		res.redirect(302,'/login.html');
+		res.sendFile(__dirname+ismobile(req)+'/login.html','utf8');
 	}
 	
 })
 app.get('/search.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/search.html','utf8');
+		res.sendFile(__dirname+ismobile(req)+'/search.html','utf8');
 	}else{
-		res.redirect(302,'/login.html');
+		res.sendFile(__dirname+ismobile(req)+'/login.html','utf8');
 	}
 })
 app.get('/one.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/one.html','utf8');
+		res.sendFile(__dirname+ismobile(req)+'/one.html','utf8');
 	}else{
-		res.redirect(302,'/login.html');
+		res.sendFile(__dirname+ismobile(req)+'/login.html','utf8');
 	}
 })
 app.get('/two.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/two.html','utf8');
+		res.sendFile(__dirname+ismobile(req)+'/two.html','utf8');
 	}else{
-		res.redirect(302,'/login.html');
+		res.sendFile(__dirname+ismobile(req)+'/login.html','utf8');
 	}
 })
 app.get('/three.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/three.html','utf8');
+		res.sendFile(__dirname+ismobile(req)+'/three.html','utf8');
 	}else{
-		res.redirect(302,'/login.html');
+		res.sendFile(__dirname+ismobile(req)+'/login.html','utf8');
 	}
 })
 app.get('/four.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/four.html','utf8');
+		res.sendFile(__dirname+ismobile(req)+'/four.html','utf8');
 	}else{
-		res.redirect(302,'/login.html');
+		res.sendFile(__dirname+ismobile(req)+'/login.html','utf8');
 	}
 })
 app.get('/oper.html',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+'/html/oper.html','utf-8');
+		res.sendFile(__dirname+ismobile(req)+'/oper.html','utf-8');
 	}else{
-		res.redirect(302,'/login.html');
+		res.sendFile(__dirname+ismobile(req)+'/login.html','utf8');
 	}
 })
 //登录校验
@@ -95,7 +110,7 @@ app.post('/login',urlencodedParser,function(req,res){
 		db.close(function(e){if(e) throw e;});
 	})
 })
-/*库存具体查询*/
+/*库存具体查询页面*/
 app.post('/all_search',urlencodedParser,function(req,res){
 	var _id = req.body._id;
 	var status = req.body.status;
@@ -107,12 +122,16 @@ app.post('/all_search',urlencodedParser,function(req,res){
 	if(_id!="") strTemp += "and _id="+_id;
 	if(status!="") strTemp += "and status="+status;
 	if(dateCheckbox == '1'){
-		if(startDate!="") strTemp += "and startDate="+startDate;
-		if(endDate!="") strTemp += "and endDate="+endDate;
-		
+		if(startDate !="") strTemp += " and _date>="+startDate;
+		if(endDate!="") strTemp += " and _date<="+endDate;
+		console.log(strTemp);
 	}
 	db.all("SELECT * FROM clothing_jour where 1=1 "+strTemp,function(err,row){
-		res.end(JSON.stringify(row));
+		if(row != undefined){
+			res.end(JSON.stringify(row));
+		}else{
+			res.end(row);
+		}
 		db.close(function(e){
 	   		if(e) throw e;
 	   	 });
@@ -123,8 +142,10 @@ app.post('/all_search',urlencodedParser,function(req,res){
 app.post('/searchForTd',urlencodedParser,function(req,res){
 	var db = connectDataBase();
 	db.all("select _id,store_id from clothing_jour where status=?",[1],function(err,row){
-	   // 输出 JSON 格式
-	   res.end(JSON.stringify(row));
+	   // 输出 JSON 格式,必须以json字符串格式返回，否则报错
+	   if(row != undefined){
+			res.end(JSON.stringify(row));
+		}
 	   db.close(function(e){
 	   		if(e) throw e;
 	   	 });

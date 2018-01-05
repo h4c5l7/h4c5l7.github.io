@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>查询</title>
+		<link rel="stylesheet" href="pc/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="pc/css/bootstrap-table.min.css" />
+		<link rel="stylesheet" href="pc/css/common.css" />
+		<link rel="stylesheet" href="pc/css/search.css" />
+		<script type="text/javascript" src="js/jquery-1.11.2.js" ></script>
+		<script type="text/javascript" src="js/jquery.form.js" ></script>
+		<script type="text/javascript" src="js/laydate/laydate.js" ></script>
+		<script type="text/javascript" src="js/laydate/laydate.js" ></script>
+		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table-zh-CN.min.js" ></script>
+		<script type="text/javascript" src="js/search.js" ></script>
+		
+	</head>
+	<body>
+		<form id="searchForm" action="all_search" method="post">
+			<ul>
+				<li>
+					<label>编号</label>
+					<input type="text" name="_id"/>
+				</li>
+				<li>
+					<label>状态</label>
+					<select name="status">
+						<option value="">全部</option>
+						<option value="2">已出库</option>
+						<option value="1">未出库</option>
+					</select>
+				</li>
+				<li>
+					<input type="checkbox" id="dateCheckbox"/>
+					<input type="text" value='0' name="dateCheckbox" style="display: none;"/>
+					<label>日期</label>
+					<input type="text" id="startDate" name="startDate" disabled="true">&nbsp;&nbsp;&nbsp;到<input type="text" id="endDate" name="endDate" disabled="true">
+					<input type="submit" id="pullInStorageBtn" value="查询"/>
+					<input type="text" style="" name="startDate1" id="startDate1"/>
+					<input type="text" style="" name="endDate1" id="endDate1"/>
+				</li>
+			</ul>
+		</form>
+			<table id="searchTable" class="table table-bordered itswTable" data-unique-id="id" >
+			</table>
+		<script>
+			$(function(){
+				init();
+				function init(){
+					var myDate = new Date();
+					let myMonth = myDate.getMonth()+1;
+					let myDate1 = myDate.getDate();
+					if((myDate.getMonth()+1)<10){
+						myMonth = "0"+myMonth;
+					}
+					if(myDate1<10){
+						myDate1 = "0"+myDate1;
+					}
+					var dateStr = myDate.getFullYear()+"-"+myMonth+"-"+myDate1;
+					laydate.render({
+					  elem: '#startDate', //指定元素
+					  value: dateStr,
+					  done: function(value, date, endDate){
+					  	$("#startDate1").val(value.replace(/-/g,""));
+					  }
+					});
+					laydate.render({
+					  elem: '#endDate',//指定元素
+					  value:dateStr,
+					  done: function(value, date, endDate){
+					  	$("#endDate1").val(value.replace(/-/g,""));
+					  }
+					  	
+					});
+					$("#startDate").on('change',function(){
+						$("#startDate1").val($("#startDate").val().replace(/-/g,""));
+					})
+					$("#endDate").on('change',function(){
+						$("#endDate1").val($("#endDate").val().replace(/-/g,""));
+					})
+				}
+			})
+			//table 序号	
+		 	function indexNum(value, row, index) {
+				return index + 1;
+			}
+		 	function operate(value,row,index){
+		 		if(row.status == '1'){
+		 			return "<a href='javascript:void(0);' data-id="+row._id+">出库</a>";
+		 		}
+		 	}
+		</script>
+	</body>
+</html>

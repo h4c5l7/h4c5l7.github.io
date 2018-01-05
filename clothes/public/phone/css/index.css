@@ -1,0 +1,56 @@
+
+.one,.two,.three,.four,.main{
+	font-size: 20px;
+	font-weight: bolder;
+	display: table;
+	text-align: center;
+	/*background-color: #E0EEEE;*/
+	/*background-color:#9BD4F1;*/
+	background-color: #B3EE3A;
+	float: left;
+}
+.one>a,.two>a,.three>a,.four>a,.main>a{
+	display:table-cell;
+	vertical-align:middle;
+	cursor:pointer;
+	color:#333;
+}
+.one{
+	width:20%;
+	height: 80%;
+	border-left: 1px solid #8F8F8F;
+	border-top: 1px solid #8F8F8F;
+	box-sizing: border-box;
+}
+.main{
+	width:60%;
+	height: 80%;
+	border-top:1px solid #8F8F8F;
+	border-left: 1px solid #8F8F8F;
+	border-right: 1px solid #8F8F8F;
+	box-sizing: border-box;
+}
+.four{
+	width: 20%;
+	height: 80%;
+	border-top:1px solid #8F8F8F;
+	border-right: 1px solid #8F8F8F;
+	box-sizing: border-box;
+}
+.two{
+	width: 50%;
+	height: 20%;
+	border-top: 1px solid #8F8F8F;
+	border-right: 1px solid #8F8F8F;
+	border-left: 1px solid #8F8F8F;
+	border-bottom: 1px solid #8F8F8F;
+	box-sizing: border-box;
+}
+.three{
+	width: 50%;
+	height: 20%;
+	border-top: 1px solid #8F8F8F;
+	border-bottom: 1px solid #8F8F8F;
+	border-right: 1px solid #8F8F8F;
+	box-sizing: border-box;
+}

@@ -16,25 +16,22 @@ iframe{
 .index-header img{
 	float: left;
 	margin-top: 14px;
-    margin-left: 15px;
+    margin-left: 30px;
 }
 .index-header ul{
-	width: 100%;
+	width: 50%;
+	margin-left:260px;
 	height: 60px;
 	line-height: 60px;
 }
-
 .index-header ul li a{
 	float: left;
 	font-size: 16px;
 	color:#fff;
-	margin-left: 1.5rem;
+	margin-left: 50px;
 	font-weight: bolder;
 	cursor: pointer;
 	
-}
-.index-header ul li a:active{
-	color:#dc1e32;
 }
 .index-header ul li a:hover{
 	color:#dc1e32;
@@ -57,7 +54,6 @@ iframe{
 	display:table-cell;
 	vertical-align:middle;
 	cursor:pointer;
-	color:#333;
 }
 .one{
 	width:20%;
@@ -75,7 +71,7 @@ iframe{
 	box-sizing: border-box;
 }
 .four{
-	width: 20%;
+	width: 20.1%;
 	height: 80%;
 	border-top:1px solid #8F8F8F;
 	border-right: 1px solid #8F8F8F;

@@ -1,6 +1,4 @@
-ul{
-	list-style: none;
-}
+
 form{
 	width: 35%;
 	height: 100%;
@@ -17,8 +15,8 @@ form h3{
 }
 form input[type='text']{
 	width: 270px;
-	height:30px;
-	font-size: 13px;
+	height:40px;
+	font-size: 16px;
 	color: #3c3c3c;
 	background-image: none;
 	border: 1px solid #e5e6e7;
@@ -27,9 +25,10 @@ form input[type='text']{
 }
 input[type=submit],input[type=button]{
 	width: 70px;
-	height: 30px;
+	height: 40px;
 	background:#00C1DE;
 	color:#fff;
+	    margin-left: 10px;
 }
 input[type=submit]:hover,input[type=button]:hover{
 	background:#009688;
@@ -37,18 +36,18 @@ input[type=submit]:hover,input[type=button]:hover{
 	cursor: pointer;
 }
 form label{
-	font-size: 13px;
+	font-size: 16px;
 	color:#3C3C3C;
 	margin-left:20px;
 }
 form select{
 	width: 270px;
-	height:30px;
-	line-height: 30px;
+	height:40px;
+	line-height: 40px;
 	margin-left:20px;
 }
 form select option{
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: 400;
 }
 form button{

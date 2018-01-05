@@ -1,11 +1,11 @@
 
-ul{
+#searchForm ul{
 	list-style: none;
 	background: #f5fbfa;
 	padding: 10px 10px;
 }
 
-ul li{
+#searchForm ul li{
 	margin-bottom: 10px;
 }
 input[type='text']{

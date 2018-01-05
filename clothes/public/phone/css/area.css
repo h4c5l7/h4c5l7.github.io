@@ -1,18 +1,8 @@
-*{
-	padding: 0;
-	margin: 0;
-	font-family: "microsoft yahei";
-	
-}
-html,body{
+
+#one_table,#two_table,#three_table,#four_table{
 	width: 100%;
 	height: 100%;
-	overflow: hidden;
-}
-#one_table,#two_table,#three_table,#four_table{
-	width: 65%;
-	height: 100%;
-	padding: 20px;
+	/*padding: 20px;*/
 	box-sizing: border-box;
 	float: left;
 }

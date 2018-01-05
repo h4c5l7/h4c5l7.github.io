@@ -10,43 +10,35 @@
 		<link rel="stylesheet" href="css/bootstrap-table.min.css" />
 		<link rel="stylesheet" href="css/common.css" />
 		<link rel="stylesheet" href="css/search.css" />
-		<script type="text/javascript" src="js/jquery-1.11.2.js" ></script>
-		<script type="text/javascript" src="js/jquery.form.js" ></script>
-		<script type="text/javascript" src="js/laydate/laydate.js" ></script>
-		<script type="text/javascript" src="js/laydate/laydate.js" ></script>
-		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
-		<script type="text/javascript" src="js/bootstrap-table.min.js" ></script>
-		<script type="text/javascript" src="js/bootstrap-table-zh-CN.min.js" ></script>
-		<script type="text/javascript" src="js/search.js" ></script>
-		
 	</head>
 	<body>
-		<form id="searchForm" action="all_search" method="post">
-			<ul>
-				<li>
-					<label>编号</label>
-					<input type="text" name="_id"/>
-				</li>
-				<li>
-					<label>状态</label>
-					<select name="status">
-						<option value="">全部</option>
-						<option value="2">已出库</option>
-						<option value="1">未出库</option>
-					</select>
-				</li>
-				<li>
-					<input type="checkbox" id="dateCheckbox"/>
-					<input type="text" value='0' name="dateCheckbox" style="display: none;"/>
-					<label id="date-lable">日期</label>
-					<input type="text" id="startDate" name="startDate" disabled="true">&nbsp;到<input type="text" id="endDate" name="endDate" disabled="true">
-					<input type="submit" id="pullInStorageBtn" value="查询"/>
-					<input type="text" style="display: none;" name="startDate1" id="startDate1"/>
-					<input type="text" style="display: none;" name="endDate1" id="endDate1"/>
-				</li>
-			</ul>
-		</form>
-		<div class="panel panel-default">
+		<div class="header"></div>
+		<div class="frame">
+			<form id="searchForm" action="all_search" method="post">
+				<ul>
+					<li>
+						<label>编号</label>
+						<input type="text" name="_id"/>
+					</li>
+					<li>
+						<label>状态</label>
+						<select name="status">
+							<option value="">全部</option>
+							<option value="2">已出库</option>
+							<option value="1">未出库</option>
+						</select>
+					</li>
+					<li>
+						<input type="checkbox" id="dateCheckbox"/>
+						<input type="text" value='0' name="dateCheckbox" style="display: none;"/>
+						<label id="date-lable">日期</label>
+						<input type="text" id="startDate" name="startDate" disabled="true">&nbsp;到<input type="text" id="endDate" name="endDate" disabled="true">
+						<input type="submit" id="pullInStorageBtn" value="查询"/>
+						<input type="text" style="display: none;" name="startDate1" id="startDate1"/>
+						<input type="text" style="display: none;" name="endDate1" id="endDate1"/>
+					</li>
+				</ul>
+			</form>
 			<div class="panel-body">
 	            <div class="table-responsive">
 					<table id="searchTable" class="table table-bordered" data-unique-id="id" >
@@ -55,6 +47,14 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript" src="js/jquery-1.11.2.js" ></script>
+		<script type="text/javascript" src="js/jquery.form.js" ></script>
+		<script type="text/javascript" src="js/laydate/laydate.js" ></script>
+		<script type="text/javascript" src="js/laydate/laydate.js" ></script>
+		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table-zh-CN.min.js" ></script>
+		<script type="text/javascript" src="js/search.js" ></script>
 		<script>
 			var myDate = new Date();
 			var dateStr = myDate.getFullYear()+"-"+(myDate.getMonth()+1)+"-"+myDate.getDate();
@@ -75,7 +75,7 @@
 		 			return "<a href='javascript:void(0);' data-id="+row._id+">出库</a>";
 		 		}
 		 	}
-		 	
+		 	$(".header").load('header.html');
 		</script>
 	</body>
 </html>
