@@ -2,29 +2,20 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="HandheldFriendly" content="true">
 		<title>二区</title>
+		<link rel="stylesheet" href="phone/css/common.css" />
+		<link rel="stylesheet" href="phone/css/oper.css" />
+		<link rel="stylesheet" href="phone/css/area.css" />
 		<script type="text/javascript" src="js/jquery-1.11.2.js" ></script>
 		<script type="text/javascript" src="js/jquery.form.js" ></script>
 		<script type="text/javascript" src="js/area.js" ></script>
-		<link rel="stylesheet" href="css/common.css" />
-		<link rel="stylesheet" href="css/oper.css" />
-		<link rel="stylesheet" href="css/area.css" />
 	</head>
 	<body>
 		<div class="header"></div>
 		<div class="frame">
-			<table id="two_table">
-				<thead>
-					<tr><td colspan="11">二区</td></tr>
-				</thead>
-				<tbody>
-					<tr></tr>
-					<tr></tr>
-					<tr></tr>
-					<tr></tr>
-					<tr></tr>
-				</tbody>
-			</table>
 			<form id="form" method="post" action="pullIn_post">
 				<ul>
 					<li class="search_li">
@@ -59,11 +50,25 @@
 					</li>
 				</ul>
 			</form>
+			<table id="two_table">
+				<thead>
+					<tr><td colspan="11">二区</td></tr>
+				</thead>
+				<tbody>
+					<tr></tr>
+					<tr></tr>
+					<tr></tr>
+					<tr></tr>
+					<tr></tr>
+				</tbody>
+			</table>
 			<div id="show_button">存入订单</div>
 		</div>
 	</body>
 	<script>
-		$(".header").load('header.html');
+		$(".header").load('header.html',function(response,status,xhr){
+			$(".index-header ul li a").eq(3).css("color","#dc1e32");
+		});
 		initOnePage();
 		function initOnePage(){
 			var $tbody = $("table tbody");

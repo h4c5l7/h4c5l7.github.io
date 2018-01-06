@@ -6,9 +6,9 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="HandheldFriendly" content="true">
 		<title>一区</title>
-		<link rel="stylesheet" href="css/common.css" />
-		<link rel="stylesheet" href="css/oper.css" />
-		<link rel="stylesheet" href="css/area.css" />
+		<link rel="stylesheet" href="phone/css/common.css" />
+		<link rel="stylesheet" href="phone/css/oper.css" />
+		<link rel="stylesheet" href="phone/css/area.css" />
 	</head>
 	<body>
 		<div class="header"></div>
@@ -65,7 +65,9 @@
 	<script type="text/javascript" src="js/jquery.form.js" ></script>
 	<script type="text/javascript" src="js/area.js" ></script>
 	<script>
-		$(".header").load('header.html');
+		$(".header").load('header.html',function(response,status,xhr){
+			$(".index-header ul li a").eq(2).css("color","#dc1e32");
+		});
 		initOnePage();
 		function initOnePage(){
 			var $tbody = $("table tbody");

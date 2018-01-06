@@ -1,13 +1,4 @@
-*{
-	margin: 0;
-	padding: 0;
-	border:0;
-	font-family: "microsoft yahei";
-}
-html,body{
-	height: 100%;
-	width: 100%;
-}
+
 #login-container{
 	height: 100%;
 	width: 100%;

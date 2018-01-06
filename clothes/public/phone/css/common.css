@@ -5,31 +5,6 @@
 	font-family: "microsoft yahei";
 }
 
-@media only screen and (min-width: 401px){
-    html {
-        font-size: 25px !important;
-    }
-}
-@media only screen and (min-width: 428px){
-    html {
-        font-size: 26.75px !important;
-    }
-}
-@media only screen and (min-width: 481px){
-    html {
-        font-size: 30px !important; 
-    }
-}
-@media only screen and (min-width: 569px){
-    html {
-        font-size: 35px !important; 
-    }
-}
-@media only screen and (min-width: 641px){
-    html {
-        font-size: 40px !important; 
-    }
-}
 html,body{
 	width: 100%;
 	height: 100%;
@@ -57,6 +32,7 @@ a{
 	position: fixed;
 	top:0;
 	left: 0;
+	z-index: 999;
 }
 .index-header img{
 	float: left;
@@ -82,5 +58,9 @@ a{
 	color:#dc1e32;
 }
 .index-header ul li a:hover{
+	color:#dc1e32;
+}
+
+a.active{
 	color:#dc1e32;
 }

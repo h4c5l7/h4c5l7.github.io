@@ -9,6 +9,7 @@ var sqlite3 = require('sqlite3');
 var sd = require('silly-datetime');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var util = require("util");
 var app = express();
 app.use(express.static('public'));
 app.use(cookieParser('sessionClothes'));
@@ -19,7 +20,7 @@ app.use(session({
 }));
 
 function ismobile(req){
-	var deviceAgent = req.headers["user-agent"].toLowerCase();
+	/*var deviceAgent = req.headers["user-agent"].toLowerCase();
 	var agentID = deviceAgent.match(/(iphone|ipod|ipad|android)/);
 	if(agentID){
 		//指到手机、pad的网页
@@ -27,7 +28,8 @@ function ismobile(req){
 	}else{
 		//指到pc网页
 		return "/html";
-	}
+	}*/
+	return "/phoneHtml";
 }
 app.get('/',function(req,res){
 	if(req.session.user){
@@ -97,6 +99,9 @@ app.get('/oper.html',function(req,res){
 		res.sendFile(__dirname+ismobile(req)+'/login.html','utf8');
 	}
 })
+app.get('/header.html',function(req,res){
+	res.sendFile(__dirname+'/phoneHtml/header.html','utf8');
+})
 //登录校验
 app.post('/login',urlencodedParser,function(req,res){
 	var db = connectDataBase();
@@ -119,14 +124,19 @@ app.post('/all_search',urlencodedParser,function(req,res){
 	var dateCheckbox = req.body.dateCheckbox;
 	var db = connectDataBase();
 	var strTemp = "";
-	if(_id!="") strTemp += "and _id="+_id;
-	if(status!="") strTemp += "and status="+status;
+	if(_id!=""){
+		if(isNaN(parseInt(_id))){
+			strTemp += " and _id=\'"+_id+"\'";
+		}else{
+			strTemp += " and (_id=\'"+_id+"\' or _id="+_id+")";
+		}
+	} 
+	if(status!="") strTemp += " and status="+status;
 	if(dateCheckbox == '1'){
 		if(startDate !="") strTemp += " and _date>="+startDate;
 		if(endDate!="") strTemp += " and _date<="+endDate;
-		console.log(strTemp);
 	}
-	db.all("SELECT * FROM clothing_jour where 1=1 "+strTemp,function(err,row){
+	db.all("SELECT * FROM clothing_jour where 1=1"+strTemp,function(err,row){
 		if(row != undefined){
 			res.end(JSON.stringify(row));
 		}else{
@@ -155,7 +165,13 @@ app.post('/searchForTd',urlencodedParser,function(req,res){
 app.post('/search_post',urlencodedParser,function(req,res){
 	var search_orderNum = req.body.search_orderNum;
 	var db = connectDataBase();
-	db.get("SELECT _id,store_id FROM clothing_jour where (_id=? or _id=?) and status=?",[search_orderNum,parseInt(search_orderNum),1],function(err,row){
+	var sqlParam;
+	if(isNaN(parseInt(search_orderNum))){
+		sqlParam =[search_orderNum,search_orderNum,1];
+	}else{
+		sqlParam =[search_orderNum,parseInt(search_orderNum),1];
+	}
+	db.get("SELECT _id,store_id FROM clothing_jour where (_id=? or _id=?) and status=?",sqlParam,function(err,row){
 		if(row == undefined){
 			res.send(false);
 		}else{
@@ -171,8 +187,15 @@ app.post('/search_post',urlencodedParser,function(req,res){
 app.post('/pullIn_post',urlencodedParser,function(req,res){
 	// 输出 JSON 格式
    var db = connectDataBase();
+   var orderNum = req.body.orderNum;
+   var sqlParam;
+	if(isNaN(parseInt(orderNum))){
+		sqlParam =[orderNum,orderNum];
+	}else{
+		sqlParam =[orderNum,parseInt(orderNum)];
+	}
    //先查询在一区中是否已经使用了该订单号
-   db.each("SELECT count(1) as count FROM clothing_jour where _id=? or _id=?",[req.body.orderNum,parseInt(req.body.orderNum)],function(err,row){
+   db.each("SELECT count(1) as count FROM clothing_jour where _id=? or _id=?",sqlParam,function(err,row){
    		if(err) throw err;
    		if(row.count>0){
    			res.send("0");
@@ -193,7 +216,11 @@ app.post('/pullIn_post',urlencodedParser,function(req,res){
 app.post('/pullOut_post',urlencodedParser,function(req,res){
 	 var db = connectDataBase();
 	 var stmt = db.prepare("UPDATE clothing_jour set status=? where _id =? or _id=?");
-	 stmt.run(2, req.body._id,parseInt(req.body._id));
+	 if(isNaN(parseInt(req.body._id))){
+		 stmt.run(2, req.body._id,req.body._id);
+	 }else{
+		 stmt.run(2, req.body._id,parseInt(req.body._id));
+	 }
 	 stmt.finalize();
 	 db.close(function(e){
    		if(e) throw e;

@@ -24,28 +24,42 @@ $(document).ready(function() {
 			initEvent:function(){
 				_this = this;
 				//td的点击事件
-				$("body").on("click",function(e){
-					var tdText;
-					if(e.target.tagName == 'TD'){
-						tdText = $(e.target).attr("value");
-					}
-					if(e.target.tagName == 'P'){
-						tdText = $(e.target).parent().attr("value");
-					}
-					if((e.target.tagName == 'TD' || e.target.tagName == 'P') && e.target.innerText != '一区'){
-						var clientX = e.clientX;
-						var clientY = e.clientY;
-						$("#show_button").css("left",clientX).css("top",clientY);
-						$("#show_button").show();
-						$("#store_id").find("option[value='"+tdText+"']").prop("selected",true);
-						$("body").on("click","#show_button",function(e2){
-							$("#orderNum").focus();
+				$("body").on("click",function(e){//这样做的原因是可能不是点击在td上，但是在td的范围内。
+					var sUserAgent = navigator.userAgent.toLowerCase();
+					var agentID = sUserAgent.match(/(iphone|ipod|ipad|android)/);
+					if(!agentID){
+						var tdText;
+						if(e.target.tagName == 'TD'){
+							tdText = $(e.target).attr("value");
+						}
+						if(e.target.tagName == 'P'){
+							tdText = $(e.target).parent().attr("value");
+						}
+						if((e.target.tagName == 'TD' || e.target.tagName == 'P') && e.target.innerText != '一区'){
+							var clientX = e.clientX;
+							var clientY = e.clientY;
+							$("#show_button").css("left",clientX).css("top",clientY);
+							$("#show_button").show();
+							$("#store_id").find("option[value='"+tdText+"']").prop("selected",true);
+							$("body").on("click","#show_button",function(e2){
+								$("#orderNum").focus();
+								$("#show_button").hide();
+							})
+						}else{
 							$("#show_button").hide();
-						})
-					}else{
-						$("#show_button").hide();
+						}
 					}
 				})
+				/*$("body").on('click','td',function(e){
+					var sUserAgent = navigator.userAgent.toLowerCase();
+					var agentID = sUserAgent.match(/(iphone|ipod|ipad|android)/);
+					if(agentID){
+						if($(this).attr("value") !='一区'){
+							$("#store_id").find("option[value='"+$(this).attr("value")+"']").prop("selected",true);
+							document.getElementById("orderNum").focus();
+						}
+					}
+				})*/
 				//出库
 				$("body").on("click",".orderStyle",function(e){
 					var e=window.event||e;

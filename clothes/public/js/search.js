@@ -2,23 +2,46 @@ $(document).ready(function(){
 	 var options = {
 			success:function(data,statusText){
 				var row;
+				var columns;
 				if(!data){
 					row = [];
 				}else{
 					row = JSON.parse(data);
+					$.each(row, function(index,item) {
+						if(item.status == 1){
+							item.status1 = "未出库";
+						}else{
+							item.status1 = "已出库";
+						}
+					});
 				}
 				$('#searchTable').bootstrapTable('destroy');
-				var columns = [
-					{field:'id',title:'序号',formatter:'indexNum'},
-					{field:'_id',title:'客户编号'},
-					{field:'store_id',title:'存放位置'},
-					{field:'price',title:'价格'},
-					{field:'status',title:'状态'},
-					{field:'_date',title:'日期'},
-					{field:'remark',title:'备注'},
-					{field:'remark',title:'操作',formatter:'operate'},
-					{field:'space',title:''}
-				];
+				var sUserAgent = navigator.userAgent.toLowerCase();
+				var agentID = sUserAgent.match(/(iphone|ipod|ipad|android)/);
+				if(agentID){
+					columns = [
+						{field:'id',title:'序号',formatter:'indexNum'},
+						{field:'_id',title:'客户编号'},
+						{field:'store_id',title:'存放位置'},
+						{field:'price',title:'价格'},
+						{field:'status1',title:'状态'},
+						{field:'_date',title:'日期'},
+						{field:'remark',title:'备注'},
+						{field:'remark',title:'操作',formatter:'operate'}
+					];
+				}else{
+					columns = [
+						{field:'id',title:'序号',formatter:'indexNum'},
+						{field:'_id',title:'客户编号'},
+						{field:'store_id',title:'存放位置'},
+						{field:'price',title:'价格'},
+						{field:'status',title:'状态'},
+						{field:'_date',title:'日期'},
+						{field:'remark',title:'备注'},
+						{field:'remark',title:'操作',formatter:'operate'},
+						{field:'space',title:''}
+					];
+				}
 				$("#searchTable").bootstrapTable({
 					columns:columns,
 					rowStyle: function (row, index){

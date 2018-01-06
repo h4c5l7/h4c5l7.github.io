@@ -36,6 +36,9 @@ iframe{
 .index-header ul li a:hover{
 	color:#dc1e32;
 }
+.index-header ul li a.active{
+	color:#dc1e32;
+}
 
 
 
