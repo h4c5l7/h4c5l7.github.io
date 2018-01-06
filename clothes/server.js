@@ -16,11 +16,12 @@ app.use(cookieParser('sessionClothes'));
 app.use(session({
     secret: 'sessionClothes',//与cookieParser中的一致
     resave: true,
-    saveUninitialized:true
+    saveUninitialized:true,
+    cookie: { maxAge: 24*60*60* 1000 }
 }));
 
 function ismobile(req){
-	/*var deviceAgent = req.headers["user-agent"].toLowerCase();
+	var deviceAgent = req.headers["user-agent"].toLowerCase();
 	var agentID = deviceAgent.match(/(iphone|ipod|ipad|android)/);
 	if(agentID){
 		//指到手机、pad的网页
@@ -28,8 +29,7 @@ function ismobile(req){
 	}else{
 		//指到pc网页
 		return "/html";
-	}*/
-	return "/phoneHtml";
+	}
 }
 app.get('/',function(req,res){
 	if(req.session.user){
