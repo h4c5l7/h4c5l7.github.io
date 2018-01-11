@@ -40,9 +40,6 @@ iframe{
 	color:#dc1e32;
 }
 
-
-
-
 .one,.two,.three,.four,.main{
 	font-size: 20px;
 	font-weight: bolder;
@@ -57,6 +54,10 @@ iframe{
 	display:table-cell;
 	vertical-align:middle;
 	cursor:pointer;
+}
+.main>a>span{
+	font-size: 90px;
+	font-family: STXingkai;
 }
 .one{
 	width:20%;

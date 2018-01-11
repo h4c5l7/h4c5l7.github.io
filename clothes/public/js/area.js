@@ -94,22 +94,26 @@ $(document).ready(function() {
 							if(result === false){
 								alert("在仓库内没有查询到该订单！");
 							}else{
-								//出库
+								//询问是否出库
 								var param = JSON.parse(result);
-								var tipMess = "订单"+param._id+"存放在"+param.store_id+"号仓库中，是否需要出库？";
-								if(confirm(tipMess)){
-									//确认出库
-									//让 status变为2，
-									$.ajax({
-										url:"/pullOut_post",
-										type:"POST",
-										data:"_id="+search_orderNum,
-										success:function(result1){
-											$("div[title='"+param._id+"']").remove();
-											alert(result1);
-										}
-									})
-								}
+								$("table tr td[value='"+param.store_id+"']").addClass("redBgColor");
+								setTimeout(function(){
+									var tipMess = "订单"+param._id+"存放在"+param.store_id+"号仓库中，是否需要出库？";
+									if(confirm(tipMess)){
+										//确认出库
+										//让 status变为2，
+										$.ajax({
+											url:"/pullOut_post",
+											type:"POST",
+											data:"_id="+search_orderNum,
+											success:function(result1){
+												$("div[title='"+param._id+"']").remove();
+												alert(result1);
+											}
+										})
+									}
+									$("table tr td[value='"+param.store_id+"']").removeClass("redBgColor");
+								},100);
 							}
 						}
 					})
