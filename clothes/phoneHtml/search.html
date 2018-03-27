@@ -56,16 +56,42 @@
 		<script type="text/javascript" src="js/bootstrap-table-zh-CN.min.js" ></script>
 		<script type="text/javascript" src="js/search.js" ></script>
 		<script>
-			var myDate = new Date();
-			var dateStr = myDate.getFullYear()+"-"+(myDate.getMonth()+1)+"-"+myDate.getDate();
-			laydate.render({
-			  elem: '#startDate', //指定元素
-			  value: dateStr
-			});
-			laydate.render({
-			  elem: '#endDate',//指定元素
-			  value:dateStr
-			});
+			$(function(){
+				init();
+				function init(){
+					var myDate = new Date();
+					let myMonth = myDate.getMonth()+1;
+					let myDate1 = myDate.getDate();
+					if((myDate.getMonth()+1)<10){
+						myMonth = "0"+myMonth;
+					}
+					if(myDate1<10){
+						myDate1 = "0"+myDate1;
+					}
+					var dateStr = myDate.getFullYear()+"-"+myMonth+"-"+myDate1;
+					laydate.render({
+					  elem: '#startDate', //指定元素
+					  value: dateStr,
+					  done: function(value, date, endDate){
+					  	$("#startDate1").val(value.replace(/-/g,""));
+					  }
+					});
+					laydate.render({
+					  elem: '#endDate',//指定元素
+					  value:dateStr,
+					  done: function(value, date, endDate){
+					  	$("#endDate1").val(value.replace(/-/g,""));
+					  }
+					  	
+					});
+					$("#startDate").on('change',function(){
+						$("#startDate1").val($("#startDate").val().replace(/-/g,""));
+					})
+					$("#endDate").on('change',function(){
+						$("#endDate1").val($("#endDate").val().replace(/-/g,""));
+					})
+				}
+			})
 			//table 序号	
 		 	function indexNum(value, row, index) {
 				return index + 1;

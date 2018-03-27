@@ -1,20 +1,20 @@
 ul{
 	list-style: none;
 }
+#sidebar ul.search{
+	padding-bottom: 10px;
+	background: #f5fbfa;
+}
+
 form{
-	width: 100%;
-	float: left;
-	box-sizing: border-box;
-	margin-bottom: 5px;
+	margin-top: 5px;
 }
-form ul{
-	height: 100%;
-}
-form h3{
+
+h3{
 	padding: 10px;
 	font-size: 16px;
 }
-form input[type='text']{
+input[type='text']{
 	width: 200px;
 	height:30px;
 	font-size: 13px;
@@ -36,7 +36,7 @@ input[type=submit]:hover,input[type=button]:hover{
 	color:#fff;
 	cursor: pointer;
 }
-form label{
+label{
 	font-size: 13px;
 	color:#3C3C3C;
 	margin-left:10px;

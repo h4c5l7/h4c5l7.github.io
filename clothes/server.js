@@ -30,10 +30,11 @@ function ismobile(req){
 		//指到pc网页
 		return "/html";
 	}
+	
 }
 app.get('/',function(req,res){
 	if(req.session.user){
-		res.sendFile(__dirname+ismobile(req)+"/index.html",'utf8');
+		res.sendFile(__dirname+ismobile(req)+"/mainStore.html",'utf8');
 	}else{
 		res.sendFile(__dirname+ismobile(req)+"/login.html",'utf8');
 	}
@@ -48,6 +49,17 @@ app.get('/index.html',function(req,res){
 		res.redirect(302,'/login.html');
 	}
 	
+})
+app.get('/test.html',function(req,res){
+	res.sendFile(__dirname+'/test.html','utf-8');
+})
+
+app.get('/mainStore.html',function(req,res){
+	if(req.session.user){
+		res.sendFile(__dirname+ismobile(req)+'/mainStore.html','utf8');
+	}else{
+		res.redirect(302,'/login.html');
+	}
 })
 app.get('/body.html',function(req,res){
 	if(req.session.user){
@@ -133,10 +145,12 @@ app.post('/all_search',urlencodedParser,function(req,res){
 	} 
 	if(status!="") strTemp += " and status="+status;
 	if(dateCheckbox == '1'){
-		if(startDate !="") strTemp += " and _date>="+startDate;
-		if(endDate!="") strTemp += " and _date<="+endDate;
+		if(startDate !="") strTemp += " and _date>=\'"+startDate+"\'";
+		if(endDate!="") strTemp += " and _date<=\'"+endDate+"\'";
 	}
-	db.all("SELECT * FROM clothing_jour where 1=1"+strTemp,function(err,row){
+	strTemp = "SELECT * FROM clothing_jour where 1=1"+strTemp;
+	console.log(strTemp);
+	db.all(strTemp,function(err,row){
 		if(row != undefined){
 			res.end(JSON.stringify(row));
 		}else{
@@ -151,7 +165,7 @@ app.post('/all_search',urlencodedParser,function(req,res){
 /*填满格子*/
 app.post('/searchForTd',urlencodedParser,function(req,res){
 	var db = connectDataBase();
-	db.all("select _id,store_id from clothing_jour where status=?",[1],function(err,row){
+	db.all("select _id,store_id,_date from clothing_jour where status=?",[1],function(err,row){
 	   // 输出 JSON 格式,必须以json字符串格式返回，否则报错
 	   if(row != undefined){
 			res.end(JSON.stringify(row));
@@ -227,6 +241,22 @@ app.post('/pullOut_post',urlencodedParser,function(req,res){
    	 });
    	 res.send("出库成功！");
 });
+//修改仓库地址
+app.post('/updateStoreId',urlencodedParser,function(req,res){
+	var db = connectDataBase();
+	var stmt = db.prepare("UPDATE clothing_jour set store_id=? where _id =? or _id=?");
+	if(isNaN(parseInt(req.body._id))){
+		 stmt.run(req.body.store_id, req.body._id,req.body._id);
+	 }else{
+		 stmt.run(req.body.store_id, req.body._id,parseInt(req.body._id));
+	 }
+	
+	 stmt.finalize();
+	 db.close(function(e){
+   		if(e) throw e;
+   	 });
+   	 res.send("修改仓库成功！");
+})
 app.listen(8888);
 //创建sqlite连接
 function connectDataBase(){

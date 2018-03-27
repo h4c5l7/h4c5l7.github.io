@@ -20,3 +20,8 @@ a{
 .redBgColor{
 	background-color: #ff0000;
 }
+.blueBgColor{
+	background-color:#0000ff;
+	color:#fff;
+}
+

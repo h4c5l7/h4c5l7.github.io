@@ -20,68 +20,8 @@ $(document).ready(function() {
 				}
 				return true;
 			},
-			//初始化事件
-			initEvent:function(){
-				_this = this;
-				//td的点击事件
-				$("body").on("click",function(e){//这样做的原因是可能不是点击在td上，但是在td的范围内。
-					var sUserAgent = navigator.userAgent.toLowerCase();
-					var agentID = sUserAgent.match(/(iphone|ipod|ipad|android)/);
-					if(!agentID){
-						var tdText;
-						if(e.target.tagName == 'TD'){
-							tdText = $(e.target).attr("value");
-						}
-						if(e.target.tagName == 'P'){
-							tdText = $(e.target).parent().attr("value");
-						}
-						if((e.target.tagName == 'TD' || e.target.tagName == 'P') && e.target.innerText != '一区'){
-							var clientX = e.clientX;
-							var clientY = e.clientY;
-							$("#show_button").css("left",clientX).css("top",clientY);
-							$("#show_button").show();
-							$("#store_id").find("option[value='"+tdText+"']").prop("selected",true);
-							$("body").on("click","#show_button",function(e2){
-								$("#orderNum").focus();
-								$("#show_button").hide();
-							})
-						}else{
-							$("#show_button").hide();
-						}
-					}
-				})
-				/*$("body").on('click','td',function(e){
-					var sUserAgent = navigator.userAgent.toLowerCase();
-					var agentID = sUserAgent.match(/(iphone|ipod|ipad|android)/);
-					if(agentID){
-						if($(this).attr("value") !='一区'){
-							$("#store_id").find("option[value='"+$(this).attr("value")+"']").prop("selected",true);
-							document.getElementById("orderNum").focus();
-						}
-					}
-				})*/
-				//出库
-				$("body").on("click",".orderStyle",function(e){
-					var e=window.event||e;
-    				e.stopPropagation();
-					var search_orderNum = $(this).attr("title");
-					if(confirm("订单"+search_orderNum+"是否需要出库？")){
-						//确认出库
-						//让 status变为2，
-						$.ajax({
-							url:"/pullOut_post",
-							type:"POST",
-							data:"_id="+search_orderNum,
-							success:function(result1){
-								$("div[title='"+search_orderNum+"']").remove();
-								alert(result1);
-							}
-						})
-					}
-				})
-				//查询订单
-				$("#searchBtn").on('click',function(){
-					var search_orderNum = $("#search_orderNum").val();
+			searchOrder:function(){
+				var search_orderNum = $("#search_orderNum").val();
 					if(search_orderNum == ""){
 						alert("请输入订单编号查询！");
 						return false;
@@ -117,7 +57,101 @@ $(document).ready(function() {
 							}
 						}
 					})
+			},
+			//初始化事件
+			initEvent:function(){
+				_this = this;
+				//td的点击事件
+				$("body").on("click",function(e){//这样做的原因是可能不是点击在td上，但是在td的范围内。
+					var sUserAgent = navigator.userAgent.toLowerCase();
+					var agentID = sUserAgent.match(/(iphone|ipod|ipad|android)/);
+					if(!agentID){
+						var tdText;
+						if(e.target.tagName == 'TD'){
+							tdText = $(e.target).attr("value");
+						}
+						if(e.target.tagName == 'P'){
+							tdText = $(e.target).parent().attr("value");
+						}
+						/*if((e.target.tagName == 'TD' || e.target.tagName == 'P') && e.target.innerText != '一区'){
+							var clientX = e.clientX;
+							var clientY = e.clientY;
+							$("#show_button").css("left",clientX).css("top",clientY);
+							$("#show_button").show();
+							$("#store_id").find("option[value='"+tdText+"']").prop("selected",true);
+							$("body").on("click","#show_button",function(e2){
+								$("#orderNum").focus();
+								$("#show_button").hide();
+							})
+						}else{
+							$("#show_button").hide();
+						}*/
+						if(e.target.tagName == 'DIV' && $(e.target).hasClass('orderBox')){
+							tdText = $(e.target).parent().attr("value");
+						}
+						if(e.target.tagName == 'TD' || e.target.tagName == 'P' || (e.target.tagName == 'DIV' && $(e.target).hasClass('orderBox'))){
+							var clientX = e.clientX;
+							var clientY = e.clientY;
+							$("#show_button").css("left",clientX).css("top",clientY);
+							$("#show_button").show();
+							$("#store_id").find("option[value='"+tdText+"']").prop("selected",true);
+							$("body").on("click","#show_button",function(e2){
+								$("#orderNum").focus();
+								$("#show_button").hide();
+							})
+						}else{
+							$("#show_button").hide();
+						}
+					}
 				})
+				$("div.orderBox").scroll(function(e) {
+				 	tdText = $(e.target).parent().attr("value");
+				 	$("#store_id").find("option[value='"+tdText+"']").prop("selected",true);
+				});
+				/*$("body").on('click','td',function(e){
+					var sUserAgent = navigator.userAgent.toLowerCase();
+					var agentID = sUserAgent.match(/(iphone|ipod|ipad|android)/);
+					if(agentID){
+						if($(this).attr("value") !='一区'){
+							$("#store_id").find("option[value='"+$(this).attr("value")+"']").prop("selected",true);
+							document.getElementById("orderNum").focus();
+						}
+					}
+				})*/
+				//出库
+				$("body").on("click",".orderStyle",function(e){
+					var e=window.event||e;
+    				    e.stopPropagation();
+					var search_orderNum = $(this).attr("title");
+					if(confirm("订单"+search_orderNum+"是否需要出库？")){
+						//确认出库
+						//让 status变为2，
+						$.ajax({
+							url:"/pullOut_post",
+							type:"POST",
+							data:"_id="+search_orderNum,
+							success:function(result1){
+								$("div[title='"+search_orderNum+"']").remove();
+								alert(result1);
+							}
+						})
+					}
+				})
+				//查询订单
+				$("#searchBtn").on('click',function(){
+					_this.searchOrder();
+				})
+				$("#search_orderNum").on('keypress',function(e){
+					var e = window.event ||e;
+					e.stopPropagation();
+					if(event.keyCode == 13){
+						_this.searchOrder();
+					}
+				})
+				selectText($("#search_orderNum"),'click');
+				selectText($("#orderNum"),'click');
+				selectText($("#price"),'click');
+				selectText($("#remark"),'click');
 			}
 			
 		}
@@ -130,12 +164,14 @@ $(document).ready(function() {
 					var orderNum = $("#orderNum").val();
 					var store_id = $("#store_id").val();
 					if(orderNum.length>2){
-						$("table tr td[value='"+store_id+"'] .orderBox").append("<div class='orderStyle' title='"+orderNum+"'>"+orderNum.substring(0,2)+"..</div>");
+						$("table tr td[value='"+store_id+"'] .orderBox").append("<div class='orderStyle' title='"+orderNum+"' ondragstart='drag(event)' draggable='true'>"+orderNum.substring(0,2)+"..</div>");
 					}else{
-						$("table tr td[value='"+store_id+"'] .orderBox").append("<div class='orderStyle' title='"+orderNum+"'>"+orderNum.substring(0,2)+"</div>");
+						$("table tr td[value='"+store_id+"'] .orderBox").append("<div class='orderStyle' title='"+orderNum+"' ondragstart='drag(event)' draggable='true'>"+orderNum.substring(0,2)+"</div>");
 					}
-					
-					alert("入库成功！");
+					$("#orderNum").select();
+					$("table tr td").removeClass('blueBgColor');
+					$("table tr td[value='"+store_id+"']").addClass("blueBgColor");
+					setTimeout(function(){alert("入库成功！");},100);
 				}
 			},
 			error:function(data){
@@ -147,5 +183,12 @@ $(document).ready(function() {
 		};
 		onePage.initEvent();
 	    // bind form using 'ajaxForm' 
-	    $('#form').ajaxForm(options).submit(function(){return false;}); 
+	    $('#form').ajaxForm(options).submit(function(){
+	    	return false;
+	    });
 	 });
+function selectText(obj,event){
+	obj.on(event,function(){
+		obj.select();
+	})
+}

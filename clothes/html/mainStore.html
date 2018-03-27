@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>一区</title>
+		<link rel="stylesheet" href="pc/css/common.css" />
+		<link rel="stylesheet" href="pc/css/oper.css" />
+		<link rel="stylesheet" href="pc/css/area.css" />
+		<script type="text/javascript" src="js/jquery-1.11.2.js" ></script>
+		<script type="text/javascript" src="js/jquery.form.js" ></script>
+		<script type="text/javascript" src="js/area.js" ></script>
+	</head>
+	<body>
+		<table id="main_table">
+			<tbody>
+				<tr>
+					<td value="1" colspan="4"><p>1</p><div class='orderBox'></div></td>
+					<td value="2" colspan="4"><p>2</p><div class='orderBox'></div></td>
+					<td value="3" colspan="2"><p>3</p><div class='orderBox'></div></td>
+				</tr>
+				<tr>
+					<td value="4"><p>4</p><div class='orderBox'></div></td>
+					<td value="5"><p>5</p><div class='orderBox'></div></td>
+					<td value="6"><p>6</p><div class='orderBox'></div></td>
+					<td value="7"><p>7</p><div class='orderBox'></div></td>
+					<td value="8"><p>8</p><div class='orderBox'></div></td>
+					<td value="9"><p>9</p><div class='orderBox'></div></td>
+					<td value="10"><p>10</p><div class='orderBox'></div></td>
+					<td value="11"><p>11</p><div class='orderBox'></div></td>
+					<td value="12"><p>12</p><div class='orderBox'></div></td>
+					<td value="13"><p>13</p><div class='orderBox'></div></td>
+				</tr>
+				<tr>
+					<td rowspan="3" colspan="4" value="31"><p>31</p><div class='orderBox'></div></td>
+					<td rowspan="2" value="14"><p>14</p><div class='orderBox'></div></td>
+					<td rowspan="2" value="15"><p>15</p><div class='orderBox'></div></td>
+					<td rowspan="2" value="16"><p>16</p><div class='orderBox'></div></td>
+					<td rowspan="2" value="17"><p>17</p><div class='orderBox'></div></td>
+					<td colspan="2" value="18"><p>18</p><div class='orderBox'></div></td>
+				</tr>
+				<tr>
+					<td rowspan="2" colspan="2" value="32"><p>32</p><div class='orderBox'></div></td>
+				</tr>
+				<tr>
+					<td value="19"><p>19</p><div class='orderBox'></div></td>
+					<td value="20"><p>20</p><div class='orderBox'></div></td>
+					<td value="21"><p>21</p><div class='orderBox'></div></td>
+					<td value="22"><p>22</p><div class='orderBox'></div></td>
+				</tr>
+				<tr>
+					<td colspan="4" rowspan="2" value="33"><p>33</p><div class='orderBox'></div></td>
+					<td value="23"><p>23</p><div class='orderBox'></div></td>
+					<td value="24"><p>24</p><div class='orderBox'></div></td>
+					<td value="25"><p>25</p><div class='orderBox'></div></td>
+					<td value="26"><p>26</p><div class='orderBox'></div></td>
+					<td rowspan="2" colspan="2" value="34"><p>34</p><div class='orderBox'></div></td>
+				</tr>
+				<tr>
+					<td value="27"><p>27</p><div class='orderBox'></div></td>
+					<td value="28"><p>28</p><div class='orderBox'></div></td>
+					<td value="29"><p>29</p><div class='orderBox'></div></td>
+					<td value="30"><p>30</p><div class='orderBox'></div></td
+			</tbody>
+		</table>
+		<div id="sidebar">
+			<ul class="search">
+				<li class="search_li">
+					<h3>查询</h3>
+					<p>
+						<label>订单编号</label>
+						<input type="text" id="search_orderNum" name="search_orderNum"/>
+						<input id="searchBtn" type="button" value="查询订单">
+					</p>
+				</li>
+			</ul>
+			<form id="form" method="post" action="pullIn_post">
+				<ul>
+					<li class="into_li">
+						<h3>入库</h3>
+						<ul>
+							<li>
+								<label>订单编号</label>
+								<input type="text" id="orderNum" name="orderNum"/>
+								<input type="submit" id="pullInStorageBtn" value="入库" />
+							</li>
+							<li>
+								<label>存放位置</label>
+								<select id="store_id" name="store_id"></select>
+								<!--<input type="reset" value="重置" />-->
+							</li>
+							<li>
+								<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价格</label>
+								<input type="text" id="price" name="price"/>
+							</li>
+							<li>
+								<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</label>
+								<textarea id="remark" name="remark"></textarea>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</form>
+		</div>
+		<div id="show_button">存入订单</div>
+	</body>
+	<script>
+		var updateStoreIdModel = {
+			updateStoreId:function(orderId,newStoreId){
+				//获取data,新仓库地址
+				$.ajax({
+					url:"/updateStoreId",
+					type:'POST',
+					data:"_id="+orderId+"&store_id="+newStoreId,
+					success:function(data){
+						//alert(data);
+					}
+				})
+			},
+			drag:function(e){
+				e.dataTransfer.setData('title',e.target.title);
+			},
+			initDragEvent:function(){
+				var _this = this;
+				$("#main_table tbody tr td").each(function(index,ele){
+					$(ele).on('dragover',function(e){
+						e.preventDefault();
+						e.stopPropagation();
+					})
+					$(ele).on('drop',function(e){
+						e.preventDefault();
+						e.stopPropagation();
+						var data = e.originalEvent.dataTransfer.getData('title');
+						var newStoreId = '';
+						if(e.target.tagName == 'DIV' && e.target.getAttribute("class").indexOf('orderBox')>=0){
+							$(e.target).append($(".orderStyle[title='"+data+"']"));
+							newStoreId = $(e.target).parent().attr('value');
+							_this.updateStoreId(data,newStoreId);
+							return;
+						}
+						if(e.target.tagName == 'DIV' && e.target.getAttribute('class').indexOf('orderStyle')>=0){
+							$(e.target).parent().append($(".orderStyle[title='"+data+"']"));
+							newStoreId = $(e.target).parents('td').attr('value');
+							_this.updateStoreId(data,newStoreId);
+							return;
+						}
+						if(e.target.tagName == 'TD'){
+							$(e.target).find('.orderBox').append($(".orderStyle[title='"+data+"']"));
+							newStoreId = $(e.target).attr('value');
+							_this.updateStoreId(data,newStoreId);
+							return;	
+						}
+						if(e.target.tagName == 'P'){
+							$(e.target).next().append($(".orderStyle[title='"+data+"']"));
+							newStoreId = $(e.target).parent().attr('value');
+							_this.updateStoreId(data,newStoreId);
+							return;
+						}
+					})
+				})
+			}
+		}
+		function DateMinus(date1,date2){//date1:小日期   date2:大日期
+		  　　var sdate = new Date(date1); 
+		  　　var now = date2 == ''? new Date() : new Date(date2); 
+		  　　var days = now.getTime() - sdate.getTime(); 
+		  　　var day = parseInt(days / (1000 * 60 * 60 * 24)); 
+		  　　return day; 
+		  }
+		function initOnePage(){
+			$(".index-header ul li a").eq(0).css("color","#dc1e32");
+			for(let k=1;k<=34;k++){
+				$("#store_id").append("<option value='"+k+"'>"+k+"</option");
+			}
+			$.ajax({
+					type:"post",
+					url:"/searchForTd",
+					async:true,
+					data:"",
+					success:function(result){
+						$(JSON.parse(result)).each(function(index,element){
+							var _id = element._id +"";
+							var date1 = element._date.substring(0,4)+"-"+element._date.substring(4,6)+"-"+element._date.slice(6);
+							var day = DateMinus(date1,''); 
+							if(_id.length>2){
+								if(day>60){
+									$("table tbody tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle overTimeStyle' title='"+element._id+"' ondragstart='updateStoreIdModel.drag(event)' draggable='true'>"+_id.substring(0,2)+"..</div>");
+								}else{
+									$("table tbody tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"' ondragstart='updateStoreIdModel.drag(event)' draggable='true'>"+_id.substring(0,2)+"..</div>");
+								}
+							}else{
+								if(day>60){
+									$("table tbody tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle overTimeStyle' title='"+element._id+"' ondragstart='updateStoreIdModel.drag(event)' draggable='true'>"+_id.substring(0,2)+"</div>");
+								}else{
+									$("table tbody tr td[value='"+element.store_id+"'] .orderBox").append("<div class='orderStyle' title='"+element._id+"' ondragstart='updateStoreIdModel.drag(event)' draggable='true'>"+_id.substring(0,2)+"</div>");
+								}
+							}
+							
+						})
+					}
+				});
+		}
+		initOnePage();
+		updateStoreIdModel.initDragEvent();
+		
+	</script>
+</html>

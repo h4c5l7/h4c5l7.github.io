@@ -1,20 +1,26 @@
-
-form{
+#sidebar{
 	width: 35%;
 	height: 100%;
 	float: left;
 	padding: 20px 20px 20px 0px;
 	box-sizing: border-box;
 }
-form ul{
-	height: 100%;
+#sidebar ul.search{
+	height: 30%;
+	background: #f5fbfa;
 }
-form h3{
+#sidebar h3{
 	padding: 10px;
 	font-size: 16px;
 }
-form input[type='text']{
-	width: 270px;
+#sidebar form{
+	height: 70%;
+	background: #f5fbfa;
+	margin-top:5px;
+}
+
+input[type='text']{
+	width: 240px;
 	height:40px;
 	font-size: 16px;
 	color: #3c3c3c;
@@ -23,25 +29,25 @@ form input[type='text']{
 	box-sizing: border-box;
 	margin-left:20px;
 }
-input[type=submit],input[type=button]{
+input[type=submit],input[type=button],input[type=reset]{
 	width: 70px;
 	height: 40px;
 	background:#00C1DE;
 	color:#fff;
-	    margin-left: 10px;
+	margin-left: 10px;
 }
-input[type=submit]:hover,input[type=button]:hover{
+input[type=submit]:hover,input[type=button]:hover,input[type=reset]:hover{
 	background:#009688;
 	color:#fff;
 	cursor: pointer;
 }
-form label{
+label{
 	font-size: 16px;
 	color:#3C3C3C;
 	margin-left:20px;
 }
 form select{
-	width: 270px;
+	width: 240px;
 	height:40px;
 	line-height: 40px;
 	margin-left:20px;
