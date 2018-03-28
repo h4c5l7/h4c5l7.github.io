@@ -158,7 +158,7 @@ $(document).ready(function() {
 	    var options = {
 			success:function(data,statusText){
 				if(data == 0){
-					alert("该订单号已使用过！");
+					setTimeout(function(){alert("该订单号已使用过！");},100);
 				}
 				if(data == 1){
 					var orderNum = $("#orderNum").val();
@@ -168,11 +168,11 @@ $(document).ready(function() {
 					}else{
 						$("table tr td[value='"+store_id+"'] .orderBox").append("<div class='orderStyle' title='"+orderNum+"' ondragstart='drag(event)' draggable='true'>"+orderNum.substring(0,2)+"</div>");
 					}
-					$("#orderNum").select();
 					$("table tr td").removeClass('blueBgColor');
 					$("table tr td[value='"+store_id+"']").addClass("blueBgColor");
 					setTimeout(function(){alert("入库成功！");},100);
 				}
+				$("#orderNum").select();
 			},
 			error:function(data){
 				alert(data.message);
